@@ -13,8 +13,11 @@ CSGO模拟开箱插件，和真实的模拟不太一样，但有一点是相同�
 ## L4D2_BliaryCasino
 自研赌场插件，然鹅就一个俄罗斯轮盘赌能玩，等一个DaLao帮我看看哪里有问题（我太菜了）
 
-## L4D2_scoremod_DRDK5.0.1
+## L4D2_scoremod_DRDK5.0.1 (Old)
 经过了5代的包抗专用血分插件，在原有hybrid计分基础上，增加了包，投掷的计分，并且掉落实血也会扣除伤害分（皆可自调）
+
+## l4d3_scoremod_DRDK_N4 (New)
+更新了插件以适配新DLC.
 
 ## l4d2_tank_attack_control_plus
 添加ER右键砖，添加了一个有点东西的新功能，输入!bhop之后可掉落3000HP开启连跳功能（仅为克时可用）
