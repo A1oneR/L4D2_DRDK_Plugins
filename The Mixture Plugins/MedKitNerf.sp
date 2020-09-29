@@ -15,6 +15,7 @@ public Plugin:myinfo =
 new Handle:hMinusIncapCount = INVALID_HANDLE;
 new MIC;
 new incapCount[MAXPLAYERS + 1];
+new bool:OverIncap[MAXPLAYERS + 1];
 
 public OnPluginStart() 
 {
@@ -24,30 +25,42 @@ public OnPluginStart()
 	HookEvent("heal_success",				Event_FirstAid);
 }
 
+public OnRoundStart()
+{
+	for (new i=1 ; i<=MaxClients ; i++)
+	{
+		OverIncap[i] = false;
+	}
+}
+
 public OnGameFrame()
 {
 	for (new i=1 ; i<=MaxClients ; i++)
 	{
-		incapCount[i] = GetSurvivorIncapCount(i);	
+		incapCount[i] = GetSurvivorIncapCount(i);
+        if (incapCount[i] > 1)
+        {
+            OverIncap[i] = true;
+		}
 	}
 }
 
 public Event_FirstAid(Handle:event, const String:name[], bool:dontBroadcast)
 {
-        new client = GetClientOfUserId(GetEventInt(event, "userid"));
+        new client = GetClientOfUserId(GetEventInt(event, "subject"));
 		MIC = hMinusIncapCount;
 		if( client && IsClientInGame(client) )
 		{
-			if (incapCount[client] <= MIC)
+			if (OverIncap[client] == false)
 			{
-			    return Plugin_Continue;
-			}else if (incapCount[client] > MIC)
+
+			}else if (OverIncap[client] == true)
 			{
-			    PrintToChat(client, "Reduce the incap count to %i from %i.",incapCount[client] - MIC, incapCount[client]); //DEBUG
-			    SetEntProp(client, Prop_Send, "m_currentReviveCount", incapCount[client] - MIC);
+			    PrintToChat(client, "Reduce the incap count to 1 from 2."); //DEBUG
+			    SetEntProp(client, Prop_Send, "m_currentReviveCount", 1);
+				OverIncap[client] = false;
 			}
 		}
-		return Plugin_Continue;
 }
 
 GetSurvivorIncapCount(client)
