@@ -12,17 +12,13 @@ public Plugin:myinfo =
     description = "Nerf the medkit."
 };
 
-new Handle:hMinusIncapCount = INVALID_HANDLE;
-new MIC;
 new incapCount[MAXPLAYERS + 1];
 new bool:OverIncap[MAXPLAYERS + 1];
 
 public OnPluginStart() 
 {
-	hMinusIncapCount = CreateConVar("Medkit_incap_count_minus",	"1",
-								"reduce how many incap count",
-								FCVAR_PLUGIN, true,  0.0, true, 1.0);
 	HookEvent("heal_success",				Event_FirstAid);
+	HookEvent("revive_success",				Event_ReviveSuccess);
 }
 
 public OnRoundStart()
@@ -33,7 +29,7 @@ public OnRoundStart()
 	}
 }
 
-public OnGameFrame()
+public Event_ReviveSuccess(Handle:event, const String:name[], bool:dontBroadcast)
 {
 	for (new i=1 ; i<=MaxClients ; i++)
 	{
@@ -48,7 +44,6 @@ public OnGameFrame()
 public Event_FirstAid(Handle:event, const String:name[], bool:dontBroadcast)
 {
         new client = GetClientOfUserId(GetEventInt(event, "subject"));
-		MIC = hMinusIncapCount;
 		if( client && IsClientInGame(client) )
 		{
 			if (OverIncap[client] == false)
