@@ -22,8 +22,11 @@ CSGO模拟开箱插件，和真实的模拟不太一样，但有一点是相同�
 ## l4d2_tank_attack_control_plus
 添加ER右键砖，添加了一个有点东西的新功能，输入!bhop之后可掉落3000HP开启连跳功能（仅为克时可用）
 
-## l4d2_tankswap_plus
+## l4d2_tankswap_plus (Old)
 可以将坦克控制权移交给别人，该版甚至可以将控制权给电脑
+
+## l4d3_tankswap_plus (New)
+更新了插件以适配新DLC.
 
 ## PBwithSDfix4.7
 Penalty Bonus与Skill Detect结合的诡异插件，检测到一些特殊事件后，会给予奖励分或惩罚分，Skill Detect进行了翻译
