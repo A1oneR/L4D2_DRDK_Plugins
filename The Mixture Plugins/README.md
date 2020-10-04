@@ -28,12 +28,15 @@ CSGO模拟开箱插件，和真实的模拟不太一样，但有一点是相同�
 ## l4d3_tankswap_plus (New)
 更新了插件以适配新DLC.
 
-## PBwithSDfix4.7
+## PBwithSDfix4.7 (Old)
 Penalty Bonus与Skill Detect结合的诡异插件，检测到一些特殊事件后，会给予奖励分或惩罚分，Skill Detect进行了翻译
 
 目前可获得的奖励分有：（近战）（爆头）（连续）空爆Hunter，速杀坦克，坦克买血
 
 目前可获得的惩罚分有：Hunter高扑，坦克长时间存活，克局跑分进屋，生还买雷
+
+## PBwithSDfix5 (New)
+更新了插件以适配新DLC.
 
 ## MedKitNerf
 削弱急救包恢复效果，黑白状态下打包仅恢复至一倒状态（警告，可能会有少量杂余error出现在error.log里）
