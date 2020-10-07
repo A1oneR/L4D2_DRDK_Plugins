@@ -3453,8 +3453,8 @@ stock HandleSkeet( attacker, victim, bool:bMelee = false, bool:bSniper = false, 
 				CPrintToChatAll( "{green}什么嘛，我才刚热身完毕{default}\n生还者队因为 {olive}%N{default} 的{olive}五连近战{default}空爆获得了{red}%i{default}分!!!!!!!!!\n \x05我不仅拿了常规分还拿了额外分哦！", attacker, RoundToFloor(GetConVarFloat(g_hCvarAceSkeet) * GetConVarFloat(g_hCvarMultiMeleeBonus)));
 				} else if(meleeskeetcount[attacker] > 5)
 				{
-				g_iBonus[RoundNum()] += RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (skeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiMeleeBonus));
-				CPrintToChatAll( "{green}再见，SaYooLALA{default}\n生还者队因为 {olive}%N{default} 的{olive}多连近战{default}空爆获得了{red}%i{default}分!!!!!!!!!!!", attacker, RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (skeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiMeleeBonus)));
+				g_iBonus[RoundNum()] += RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (meleeskeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiMeleeBonus));
+				CPrintToChatAll( "{green}再见，SaYooLALA{default}\n生还者队因为 {olive}%N{default} 的{olive}多连近战{default}空爆获得了{red}%i{default}分!!!!!!!!!!!", attacker, RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (meleeskeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiMeleeBonus)));
 				}
 				
 				if (sniperskeetcount[attacker] == 2)
@@ -3475,8 +3475,8 @@ stock HandleSkeet( attacker, victim, bool:bMelee = false, bool:bSniper = false, 
 				CPrintToChatAll( "{green}什么嘛，我才刚热身完毕{default}\n生还者队因为 {olive}%N{default} 的{olive}五连爆头{default}空爆获得了{red}%i{default}分!!!!!!!!!\n \x05我不仅拿了常规分还拿了额外分哦！", attacker, RoundToFloor(GetConVarFloat(g_hCvarAceSkeet) * GetConVarFloat(g_hCvarMultiSniperBonus)));
 				} else if(sniperskeetcount[attacker] > 5)
 				{
-				g_iBonus[RoundNum()] += RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (skeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiSniperBonus));
-				CPrintToChatAll( "{green}再见，SaYooLALA{default}\n生还者队因为 {olive}%N{default} 的{olive}多连爆头{default}空爆获得了{red}%i{default}分!!!!!!!!!!!", attacker, RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (skeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiSniperBonus)));
+				g_iBonus[RoundNum()] += RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (sniperskeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiSniperBonus));
+				CPrintToChatAll( "{green}再见，SaYooLALA{default}\n生还者队因为 {olive}%N{default} 的{olive}多连爆头{default}空爆获得了{red}%i{default}分!!!!!!!!!!!", attacker, RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (sniperskeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiSniperBonus)));
 				}
 				
 				if (skeetcount[attacker] == 2)
@@ -3497,7 +3497,7 @@ stock HandleSkeet( attacker, victim, bool:bMelee = false, bool:bSniper = false, 
 				CPrintToChatAll( "生还者队因为 {olive}%N{default} 的{olive}五连{default}空爆获得了{red}%i{default}分!!!!!\n \x05请一定要控住他，不然得分将会演变为天文数字！", attacker, RoundToFloor(GetConVarFloat(g_hCvarAceSkeet)));
 				} else if(skeetcount[attacker] > 5)
 				{
-				g_iBonus[RoundNum()] += RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (meleeskeetcount[attacker] - 5));
+				g_iBonus[RoundNum()] += RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (skeetcount[attacker] - 5));
 				CPrintToChatAll( "生还者队因为 {olive}%N{default} 的{olive}多连{default}空爆获得了{red}%i{default}分!!!!!!!", attacker, RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (skeetcount[attacker] - 5)));
 				}
         }
@@ -3583,7 +3583,7 @@ stock HandleNonSkeet( attacker, victim, damage, bool:bOverKill = false, bool:bMe
 				} else if(meleeskeetcount[attacker] > 5)
 				{
 				g_iBonus[RoundNum()] += RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (meleeskeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiMeleeBonus));
-				CPrintToChatAll( "{green}再见，SaYooLALA{default}\n生还者队因为 {olive}%N{default} 的{olive}多连近战{default}空爆获得了{red}%i{default}分!!!!!!!!!!!", attacker, RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (skeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiMeleeBonus)));
+				CPrintToChatAll( "{green}再见，SaYooLALA{default}\n生还者队因为 {olive}%N{default} 的{olive}多连近战{default}空爆获得了{red}%i{default}分!!!!!!!!!!!", attacker, RoundToFloor(GetConVarFloat(g_hCvarGodLikeSkeet) * (meleeskeetcount[attacker] - 5) * GetConVarFloat(g_hCvarMultiMeleeBonus)));
 				}
         }
 		
