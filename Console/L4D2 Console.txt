@@ -1,19 +1,13 @@
 List of L4D2 Cvars
-<Left 4 Dead 2> The following is a list of Left 4 Dead 2 cvar commands listed in alphabetical order.
-<Left 4 Dead> If you're looking for L4D1 Cvars: List of L4D Cvars
-	Retrieved February 8, 2015 02:21:34 UTC, Version 2.1.3.9
 Notes
-
 Descriptions with ** denote community modified descriptions and my not be entirely accurate.
 This list does not include all console commands. Ex: jointeam <team|team number|character>.
 For hidden cvars, please see the article discussion section.
 Some commands are legacy commands or are "not hooked up to code".
 Some L4D2 commands may need developer mode (launch option -dev) in order to work.
-Convars prefixed with 360_ will only set on Xbox 360. To do: Does this apply to every convar?
-
+Convars prefixed with 360_ will only set on Xbox 360.
 Cvar list
-
--
+_
 _autosave                                : cmd      :                  : Autosave
 _autosavedangerous                       : cmd      :                  : AutoSaveDangerous
 _bugreporter_restart                     : cmd      :                  : Restarts bug reporter .dll
@@ -21,7 +15,6 @@ _fov                                     : 0        : , "cl", "launcher" : Autom
 _record                                  : cmd      : , "norecord"     : Record a demo incrementally.
 _resetgamestats                          : cmd      : , "sv"           : Erases current game stats and writes out a blank stats file
 _restart                                 : cmd      :                  : Shutdown and restart the engine.
-
 A
 achievement_debug                        : 0        : , "cheat", "rep", "cl" : Turn on achievement debug msgs.
 achievement_disable                      : 0        : , "cheat", "rep", "cl" : Turn off achievements.
@@ -96,7 +89,7 @@ ammo_pack_use_duration                   : 3        : , "cheat", "rep", "cl" :
 ammo_painpills_max                       : 1        : , "rep", "cl", "launcher" : 
 ammo_pipebomb_max                        : 1        : , "rep", "cl", "launcher" : 
 ammo_pistol_max                          : -2       : , "rep", "cl", "launcher" : 
-ammo_shotgun_max                         : 56       : , "rep", "cl", "launcher" : 
+ammo_shotgun_max                         : 72       : , "rep", "cl", "launcher" : 
 ammo_smg_max                             : 650      : , "rep", "cl", "launcher" : 
 ammo_sniperrifle_max                     : 180      : , "rep", "cl", "launcher" : 
 ammo_turret_infected_damage              : 15       : , "rep", "cl", "launcher" : Turret damage per shot against the horde (turret fires at 10Hz)
@@ -129,7 +122,6 @@ autoaim_viewing_client                   : 1        : , "sv", "launcher" :
 autosave                                 : cmd      :                  : Autosave
 autosavedangerous                        : cmd      :                  : AutoSaveDangerous
 autosavedangerousissafe                  : cmd      :                  : 
-
 B
 +back                                    : cmd      : , "cl"           : 
 -back                                    : cmd      : , "cl"           : 
@@ -187,7 +179,6 @@ bugreporter_username                     :          : , "a"            : Usernam
 buildcubemaps                            : cmd      :                  : Rebuild cubemaps.
 building_cubemaps                        : 0        : , "launcher"     : 
 bullet_ff_through_walls                  : 0        : , "rep", "cl", "launcher" : 
-
 C
 c_maxdistance                            : 200      : , "a", "cl"      : 
 c_maxpitch                               : 90       : , "a", "cl"      : 
@@ -611,15 +602,15 @@ cl_soundscape_printdebuginfo             : cmd      : , "cl"           : print s
 cl_sporeclipdistance                     : 512      : , "cheat", "cl"  : 
 cl_ss_origin                             : cmd      : , "cl"           : print origin in script format
 cl_sun_decay_rate                        : 0.05     : , "cheat", "cl"  : 
-cl_survivor_light_brightness             : 4        : , "cl", "launcher" : 
-cl_survivor_light_cone                   : 0        : , "cl", "launcher" : 
-cl_survivor_light_debug                  : 0        : , "cl", "launcher" : 
-cl_survivor_light_enable                 : 1        : , "cl", "launcher" : 
-cl_survivor_light_offset_x               : 5        : , "cl", "launcher" : 
-cl_survivor_light_offset_y               : 2        : , "cl", "launcher" : 
-cl_survivor_light_offset_z               : 5        : , "cl", "launcher" : 
-cl_survivor_light_radius                 : 12       : , "cl", "launcher" : 
-cl_survivor_light_rot                    : 0        : , "cl", "launcher" : 
+cl_survivor_light_brightness             : 4        : , "cheat", "cl", "launcher" : 
+cl_survivor_light_cone                   : 0        : , "cheat", "cl", "launcher" : 
+cl_survivor_light_debug                  : 0        : , "cheat", "cl", "launcher" : 
+cl_survivor_light_enable                 : 1        : , "cheat", "cl", "launcher" : 
+cl_survivor_light_offset_x               : 5        : , "cheat", "cl", "launcher" : 
+cl_survivor_light_offset_y               : 2        : , "cheat", "cl", "launcher" : 
+cl_survivor_light_offset_z               : 5        : , "cheat", "cl", "launcher" : 
+cl_survivor_light_radius                 : 12       : , "cheat", "cl", "launcher" : 
+cl_survivor_light_rot                    : 0        : , "cheat", "cl", "launcher" : 
 cl_temp_health_fade                      : 0        : , "cl", "launcher" : temp health fades top to bottom
 cl_temp_health_pulse_incap               : 0        : , "cl", "launcher" : incap health pulses in the same fashion as temp health
 cl_temp_health_pulse_rate                : 2.5      : , "cl", "launcher" : temp health pulses this many times per second
@@ -729,6 +720,7 @@ connect                                  : cmd      : , "norecord"     : Connect
 connect_lobby                            :          : , "cl", "matsys", "launcher" : Sets the lobby ID to connect to on start.
 connect_splitscreen                      : cmd      : , "norecord", "matsys" : Connect to specified server with multiple players.
 contimes                                 : 8        : , "launcher"     : Number of console lines to overlay for debugging.
+controller_popup_shown                   : 0        : , "cl", "launcher" : Tracks if controller popup has been shown
 coop                                     : 0        : , "nf", "launcher" : Cooperative play.
 cpu_level                                : 2        : , "launcher"     : CPU Level - Default: High
 crash                                    : cmd      : , "cheat"        : Cause the engine to crash (Debug!!)
@@ -740,7 +732,6 @@ cs_make_vip                              : cmd      : , "sv"           : Marks a
 cs_ShowStateTransitions                  : -2       : , "sv", "cheat"  : cs_ShowStateTransitions <ent index or -1 for all>. Show player state transitions.
 current_flow_distance                    : cmd      : , "sv", "cheat"  : Reports the flow distance for the local player
 cvarlist                                 : cmd      :                  : Show the list of convars/concommands.
-
 D
 datacachesize                            : 32       : , "launcher"     : Size in MB.
 dbghist_addline                          : cmd      : , "sv"           : Add a line to the debug history. Format: <category id> <line>
@@ -802,6 +793,7 @@ director_configurable_weapon_spawn_density : -1.0     : , "sv", "cheat"  : Items
 director_convert_pills                   : 1        : , "sv", "cheat"  : 
 director_convert_pills_critical_health   : 50       : , "sv", "cheat"  : 
 director_convert_pills_to_defib_health   : 25       : , "sv", "cheat"  : 
+director_cs_weapon_spawn_chance          : 0.5      : , "sv", "cheat"  : 
 director_custom_finale_tank_spacing      : 10.0     : , "sv", "cheat"  : 
 director_debug                           : 0        : , "sv", "cheat"  : 
 director_debug_revisit                   : 0        : , "sv", "cheat"  : 
@@ -962,7 +954,6 @@ dumpeventqueue                           : cmd      : , "sv"           : Dump th
 dumpgamestringtable                      : cmd      : , "sv", "cheat"  : Dump the contents of the game string table to the console.
 dumpsavedir                              : cmd      :                  : List the contents of the save directory in memory
 dumpstringtables                         : cmd      :                  : Print string tables to console.
-
 E
 echo                                     : cmd      : , "server_can_execute" : Echo text to console.
 editdemo                                 : cmd      :                  : Edit a recorded demo file (.dem ).
@@ -1021,7 +1012,6 @@ exec                                     : cmd      :                  : Execute
 exit                                     : cmd      :                  : Exit the engine.
 explode                                  : cmd      : , "sv", "cheat"  : Kills the player with explosive damage
 explodevector                            : cmd      : , "sv", "cheat"  : Kills a player applying an explosive force. Usage: explodevector <player> <x value> <y value> <z value>
-
 F
 fade_crosshair                           : cmd      : , "sv", "cheat"  : Fades the prop being looked at
 fade_immediately                         : 0        : , "sv", "cheat"  : 
@@ -1127,7 +1117,6 @@ fx_drawimpactdebris                      : 1        : , "cl", "launcher" : Draw 
 fx_drawimpactdust                        : 1        : , "cl", "launcher" : Draw impact dust effects.
 fx_drawmetalspark                        : 1        : , "cl", "launcher" : Draw metal spark effects.
 fx_glass_velocity_cap                    : 0        : , "cl", "launcher" : Maximum downwards speed of shattered glass particles
-
 G
 g15_dumpplayer                           : cmd      : , "cl"           : Spew player data.
 g15_reload                               : cmd      : , "cl"           : Reloads the Logitech G-15 Keyboard configs.
@@ -1204,7 +1193,6 @@ grenadelauncher_vel_up                   : 100.0f   : , "sv", "launcher" :
 grenadelauncher_vel_variance             : 10.0     : , "sv", "launcher" : 
 grenadelauncher_velocity                 : 1200     : , "sv", "cheat"  : 
 groundlist                               : cmd      : , "sv", "cheat"  : Display ground entity list <index>
-
 H
 hack_elevator_z_offset                   : 10       : , "sv", "cheat"  : 
 hammer_update_entity                     : cmd      : , "sv"           : Updates the entity's position/angles when in edit mode
@@ -1281,7 +1269,6 @@ hunter_pounce_max_loft_angle             : 45       : , "sv", "cheat"  : Maximum
 hunter_pounce_ready_range                : 500      : , "sv", "cheat"  : If victim is this close, crouch and get ready
 hunter_pz_claw_dmg                       : 6        : , "cheat", "rep", "cl" : Amount of damage done by a PZ hunter's regular melee attack
 hurtme                                   : cmd      : , "sv", "cheat"  : Hurts the player.  Arguments: <health to lose>
-
 I
 IgnoreReflectGlassFrustumCheck           : 0        : , "cl", "launcher" : 
 impulse                                  : cmd      : , "cl"           : 
@@ -1329,7 +1316,6 @@ ipc_console_disable                      : cmd      : , "norecord", "clientcmd_c
 ipc_console_disable_all                  : cmd      : , "norecord", "clientcmd_can_execute" : Disable all IPC consoles
 ipc_console_enable                       : cmd      : , "cheat", "norecord", "clientcmd_can_execute" : Enable IPC console
 ipc_console_show                         : cmd      : , "norecord", "clientcmd_can_execute" : Show status of IPC consoles
-
 J
 +jlook                                   : cmd      : , "cl"           : 
 -jlook                                   : cmd      : , "cl"           : 
@@ -1401,7 +1387,6 @@ jpeg                                     : cmd      :                  : Take a 
 jpeg_quality                             : 90       : , "launcher"     : jpeg screenshot quality.
 +jump                                    : cmd      : , "cl"           : 
 -jump                                    : cmd      : , "cl"           : 
-
 K
 kdtree_test                              : cmd      : , "sv", "cheat"  : Tests spatial partition for entities queries.
 key_findbinding                          : cmd      :                  : Find key bound to specified command string.
@@ -1415,7 +1400,6 @@ killserver                               : cmd      :                  : Shutdow
 killvector                               : cmd      : , "sv", "cheat"  : Kills a player applying force. Usage: killvector <player> <x value> <y value> <z value>
 +klook                                   : cmd      : , "cl"           : 
 -klook                                   : cmd      : , "cl"           : 
-
 L
 l4d1_survivor_give_item                  : 0        : , "sv", "launcher" : 
 l4d2_snd_adrenaline                      : cmd      : , "sv", "cheat"  : 
@@ -1473,7 +1457,6 @@ lower_body                               : 1        : , "cl", "launcher" :
 lower_body_debug                         : 0        : , "cheat", "cl"  : 
 lower_body_hulk_layers                   : 0        : , "cl", "launcher" : 
 lservercfgfile                           : listenserver.cfg : , "sv", "launcher" : 
-
 M
 m_customaccel                            : 0        : , "a", "cl"      : Custom mouse acceleration: 0: custom accelaration disabled 1: mouse_acceleration = min(m_customaccel_max, pow(raw_mouse_delta, m_customaccel_exponent) * m_customaccel_scale + sensitivity) 2: Same as 1, with but x and y sensitivity are scaled by m_pitch and m_yaw respectively. 3: mouse_acceleration = pow(raw_mouse_delta, m_customaccel_exponent - 1) * sensitivity
 m_customaccel_exponent                   : 1        : , "a", "cl"      : Mouse move is raised to this power before being scaled by scale factor.
@@ -1764,7 +1747,7 @@ menuselect                               : cmd      : , "clientcmd_can_execute",
 +menuUp                                  : cmd      : , "cl"           : 
 -menuUp                                  : cmd      : , "cl"           : 
 meta                                     : cmd      :                  : Metamod:Source control options
-metamod_version                          : 1.10.4V  : , "sp", "nf"     : Metamod:Source Version
+metamod_version                          : 1.10.6V  : , "sp", "nf"     : Metamod:Source Version
 miniprofiler_dump                        : 0        : , "launcher"     : 
 minisave                                 : cmd      : , "norecord"     : Saves game (for current level only!)
 mission_debug_print                      : cmd      : , "launcher"     : Print all mission metadata
@@ -2043,7 +2026,6 @@ music_moment_of_silence_repeat_interval  : 600      : , "sv", "cheat"  : Minimum
 music_moment_of_silence_start_delay      : 60       : , "sv", "cheat"  : Minimum time before we can play a MomentOfSilence after leaving a Checkpoint
 music_print                              : cmd      : , "cl"           : client
 muzzleflash_light                        : 1        : , "a", "cl"      : 
-
 N
 name                                     : step     : , "a", "user", "print", "server_can_execute", "ss" : Current user name
 name2                                    : unnamed  : , "a", "user", "print", "server_can_execute", "ss_added" : Current user name
@@ -2293,6 +2275,11 @@ nb_yaw_rate                              : 250      : , "sv", "cheat"  :
 net_allow_multicast                      : 1        : , "a"            : 
 net_allow_syslink                        : 1        : , "launcher"     : 
 net_blockmsg                             : none     : , "cheat"        : Discards incoming message: <0|1|name>
+net_chan_limit_in_debug_session          : 0        :                  : Netchannel processing can be limited in debug session to test actual disconnects
+net_chan_limit_msec                      : 0        :                  : Netchannel processing is limited to so many milliseconds, abort connection if exceeding budget
+net_chan_stats_dump                      : 0        :                  : Netchannel statistics will dump in the logs upon request
+net_chan_stats_dump_top_msgs             : 5        :                  : Netchannel statistics will dump so many top messages in each category
+net_chan_stats_lru                       : 3        :                  : Netchannel statistics LRU accumulation buffer size
 net_channels                             : cmd      :                  : Shows net channel info
 net_chokeloop                            : 0        : , "launcher"     : Apply bandwidth choke to loopback packets
 net_compresspackets                      : 1        : , "launcher"     : Use lz compression on game packets.
@@ -2359,7 +2346,6 @@ noclip_fixup                             : 1        : , "sv", "cheat"  :
 notarget                                 : cmd      : , "sv", "cheat"  : Toggle. Player becomes hidden to NPCs.
 npc_height_adjust                        : 1        : , "a", "sv"      : Enable test mode for ik height adjustment
 npc_vphysics                             : 0        : , "sv", "launcher" : 
-
 O
 old_radiusdamage                         : 0.0      : , "rep", "cl", "launcher" : 
 openserverbrowser                        : cmd      : , "cl"           : Opens server browser
@@ -2371,7 +2357,6 @@ overview_mode                            : cmd      : , "cl"           : Sets ov
 overview_names                           : 1        : , "a", "clientcmd_can_execute", "cl" : Show player's names in map overview. 
 overview_tracks                          : 1        : , "a", "clientcmd_can_execute", "cl" : Show player's tracks in map overview. 
 overview_zoom                            : cmd      : , "cl"           : Sets overview map zoom: <zoom> [<time>] [rel]
-
 P
 pain_pills_decay_rate                    : 0.27     : , "cheat", "rep", "cl" : 
 pain_pills_health_threshold              : 99       : , "cheat", "rep", "cl" : Pills can't be used unless total health is less than this amount
@@ -2509,7 +2494,7 @@ phys2_thread_mask_server                 : 6        : , "launcher"     :
 phys2_thread_stack                       : 256000   : , "launcher"     : 
 phys2_vdb                                : 0        : , "cheat"        : 
 phys2_vdb_host                           : localhost : , "cheat"        : 
-phys2_version                            : Version 2.2 (w/scheduler), built Aug 19 2014 15:23:04 : , "launcher"     : 
+phys2_version                            : Version 2.2 (w/scheduler), built Sep  2 2020 14:48:43 : , "launcher"     : 
 phys2_visualize                          : 0        : , "launcher"     : 
 phys2_water_density_multiplier           : 1        : , "launcher"     : 
 phys2_water_single_actor                 : 1        : , "launcher"     : 
@@ -2601,10 +2586,8 @@ punch_angle_decay_rate                   : 20       : , "rep", "cl", "launcher" 
 pwatchent                                : -1       : , "cheat", "cl"  : Entity to watch for prediction system changes.
 pwatchvar                                :          : , "cheat", "cl"  : Entity variable to watch in prediction system for changes.
 pz_damages                               : cmd      : , "sv", "cheat"  : List player zombie damages
-
 Q
 quit                                     : cmd      :                  : Exit the engine.
-
 R
 r_3dsky                                  : 1        : , "cl", "launcher" : Enable the rendering of 3d sky boxes
 r_3dskyonly                              : 0        : , "cheat", "cl"  : Only draw the 3d skybox. . skip the rest of the world.
@@ -2984,6 +2967,8 @@ rescue_yell_interval                     : 6        : , "sv", "cheat"  : Interva
 reset_gameconvars                        : cmd      : , "cheat"        : Reset a bunch of game convars to default values
 reset_spawnmenu_counts                   : cmd      : , "cl"           : 
 Reset_Steam_Stats                        : cmd      : , "cl", "launcher" : Resets your currently signed in Steam stats!!!
++resetcamera                             : cmd      : , "cl"           : 
+-resetcamera                             : cmd      : , "cl"           : 
 respawn_entities                         : cmd      : , "sp", "sv", "cheat" : Respawn all the entities in the map.
 restart                                  : cmd      :                  : Restart the game on the same level (add setpos to jump to current view position on restart).
 retry                                    : cmd      : , "norecord", "server_can_execute", "clientcmd_can_execute" : Retry connection to last server.
@@ -3029,7 +3014,6 @@ rr_reloadresponsesystems                 : cmd      : , "sv"           : Reload 
 rr_remarkable_maxdist                    : 1500     : , "sv", "cheat"  : info_remarkables more distant than this from a player will not even be tested to see if a rule matches them.
 rr_remarkable_world_entities_replay_limit : 1        : , "sv", "cheat"  : TLK_REMARKs will be dispatched no more than this many times for any given info_remarkable
 rr_thenany_score_slop                    : 0.0      : , "a", "sv", "cheat" : When computing respondents for a 'THEN ANY' rule, all rule-matching scores within this much of the best score will be considered.
-
 S
 save                                     : cmd      : , "norecord"     : Saves current game.
 save_async                               : 1        : , "launcher"     : 
@@ -3134,6 +3118,22 @@ sb_unstick                               : 1        : , "sv", "cheat"  :
 sb_use_button_range                      : 1000     : , "sv", "cheat"  : 
 sb_use_upgrades                          : 1        : , "sv", "cheat"  : 
 sb_vomit_blind_time                      : 5        : , "sv", "cheat"  : How long Boomer vomit/explosion gore blinds us
+sc_debug_sets                            : 0        : , "a"            : Debugging
+sc_enable                                : 1.0      : , "a", "cl", "ss" : Enable SteamController
+sc_enable2                               : 1.0      : , "a", "cl", "ss_added" : Enable SteamController
+sc_joystick_map                          : 1        : , "a"            : How to map the analog joystick deadzone and extents 0 = Scaled Cross, 1 = Concentric Mapping to Square.
+sc_joystick_pitch_sensitivity            : 0.25     : , "a", "cl", "ss" : SteamInput joystick pitch factor.
+sc_joystick_pitch_sensitivity2           : 0.25     : , "a", "cl", "ss_added" : SteamInput joystick pitch factor.
+sc_joystick_yaw_sensitivity              : 0.25     : , "a", "cl", "ss" : SteamInput joystick yaw factor.
+sc_joystick_yaw_sensitivity2             : 0.25     : , "a", "cl", "ss_added" : SteamInput joystick yaw factor.
+sc_mouse_sensitivity                     : 0.10     : , "a", "cl", "ss" : SteamInput global mouse sensitivity factor
+sc_mouse_sensitivity2                    : 0.10     : , "a", "cl", "ss_added" : SteamInput global mouse sensitivity factor
+sc_pitch_sensitivity                     : 0.9      : , "a", "cl", "ss" : SteamController pitch factor.
+sc_pitch_sensitivity2                    : 0.9      : , "a", "cl", "ss_added" : SteamController pitch factor.
+sc_pitch_sensitivity_default             : 0.9      : , "cl", "launcher" : 
+sc_yaw_sensitivity                       : 1.0      : , "a", "cl", "ss" : SteamController yaw factor.
+sc_yaw_sensitivity2                      : 1.0      : , "a", "cl", "ss_added" : SteamController yaw factor.
+sc_yaw_sensitivity_default               : 1.0      : , "cl", "launcher" : 
 scavenge_cluster_bonus_time              : 15       : , "sv", "cheat", "launcher" : Time added to the clock every time a cluster is cleared (in linear scavenge)
 scavenge_cluster_range_squared           : 100000   : , "sv", "cheat", "launcher" : Cans closer than this range will be combined into a single cluster.
 scavenge_cluster_remove_on_pour          : 1        : , "sv", "cheat", "launcher" : 
@@ -3303,6 +3303,7 @@ sm_cvarlist                              : cmd      : , "ss_added"     : sm_cvar
 sm_cvarlist_version                      : 1.1      : , "sp", "nf", "ss_added" : sm_cvarlist version
 sm_datetime_format                       : %m/%d/%Y - %H:%M:%S :                  : Default formatting time rules
 sm_deadtalk                              : 0        :                  : Controls how dead communicate. 0 - Off. 1 - Dead players ignore teams. 2 - Dead players talk to living teammates.
+sm_debug_connect                         : 0        :                  : Log Debug information about potential connection issues.
 sm_drug                                  : cmd      :                  : sm_drug <#userid|name> [0/1]
 sm_dump_admcache                         : cmd      :                  : Dumps the admin cache for debugging
 sm_dump_classes                          : cmd      :                  : Dumps the class list as a text file
@@ -3361,7 +3362,7 @@ sm_timebomb                              : cmd      :                  : sm_time
 sm_timebomb_mode                         : 0        :                  : Who is killed by the timebomb? 0 = Target only, 1 = Target's team, 2 = Everyone
 sm_timebomb_radius                       : 600      :                  : Sets the bomb blast radius.
 sm_timebomb_ticks                        : 10.0     :                  : Sets how long the timebomb fuse is.
-sm_timeleft_interval                     : 0.0      :                  : Display timeleft every x seconds. Default 0.
+sm_timeleft_interval                     : 0        :                  : Display timeleft every x seconds. Default 0.
 sm_trigger_show                          : 0        :                  : Display triggers message to all players? (0 off, 1 on, def. 0)
 sm_tsay                                  : cmd      :                  : sm_tsay [color] <message> - sends top-left message to all players
 sm_unban                                 : cmd      :                  : sm_unban <steamid|ip>
@@ -3489,7 +3490,7 @@ soundscape_fadetime                      : 3.0      : , "cheat", "cl"  : Time to
 soundscape_flush                         : cmd      : , "sv"           : Flushes the server & client side soundscapes
 soundscape_message                       : 0        : , "cl", "launcher" : 
 soundscape_radius_debug                  : 0        : , "cheat", "cl"  : Prints current volume of radius sounds
-sourcemod_version                        : 1.7.0    : , "sp", "nf", "rep" : SourceMod Version
+sourcemod_version                        : 1.7.3-dev+5262 : , "sp", "nf", "rep" : SourceMod Version
 spawn_behind_survivors_distance          : 0        : , "sv", "cheat"  : 
 spawnboomermenu                          : cmd      : , "cl"           : Show the Spawn Mode menu for boomers
 spawnchargermenu                         : cmd      : , "cl"           : Show the Spawn Mode menu for chargers
@@ -3558,6 +3559,7 @@ stats_highlight_interval                 : 10       : , "cl", "launcher" : Inter
 stats_nexthighlight                      : cmd      : , "cl"           : 
 stats_show_empty                         : 0        : , "cheat", "cl"  : 
 status                                   : cmd      :                  : Display map and connection status.
+steam_controller_haptics                 : 1        : , "cl"           : 
 steam_stats_write_to_keyvalue            : 0        : , "cl", "launcher" : If enabled, steam stats will be written to a keyvalue.
 steamworks_client_sessionid              : 0        : , "cl", "matsys", "launcher" : The client session ID for the new steam works gamestats.
 steamworks_immediate_upload              : 1        : , "rep", "cl", "matsys", "launcher" : If set to zero the stats will only be uploaded at the end of the session. If set to non-zero, stats will immediately be uploaded.
@@ -3701,15 +3703,15 @@ survivor_team_hit_pitch_max              : 10       : , "sv", "cheat"  :
 survivor_team_hit_pitch_min              : -10      : , "sv", "cheat"  : 
 survivor_team_hit_yaw_max                : 10       : , "sv", "cheat"  : 
 survivor_team_hit_yaw_min                : -10      : , "sv", "cheat"  : 
-survivor_teammatefocus_enabled           : 0        : , "cl", "launcher" : Enable or disable focusing on teammates via the use key
-survivor_teammatefocus_speed             : 10.0     : , "cl", "launcher" : Scalar speed for locking on a teammate in focus
-survivor_teammatefocus_stickyness        : 5        : , "cl", "launcher" : Amount the look controller must move before unlocking a teammate in focus
+survivor_teammatefocus_enabled           : 0        : , "rep", "cl", "launcher" : Enable or disable focusing on teammates via the use key
+survivor_teammatefocus_speed             : 10.0     : , "rep", "cl", "launcher" : Scalar speed for locking on a teammate in focus
+survivor_teammatefocus_stickyness        : 5        : , "rep", "cl", "launcher" : Amount the look controller must move before unlocking a teammate in focus
 survivor_unstoppable_speed               : 150      : , "cheat", "rep", "cl" : 
 survivor_upgrade_reload_duration         : 0.5      : , "rep", "cl", "launcher" : Upgraded survivors reload in this fraction of the base time.
 survivor_vision_range                    : 1500     : , "sv", "cheat"  : 
 survivor_vision_range_obscured           : 750      : , "sv", "cheat"  : 
 sv__ragdoll_max_remove_per_frame         : 1        : , "sv", "launcher" : 
-sv_accelerate                            : 5        : , "nf", "rep", "cl", "launcher" : 
+sv_accelerate                            : 5        : , "nf", "rep", "cl", "launcher" : How quickly players reach their maximum speed.
 sv_airaccelerate                         : 10       : , "nf", "rep", "cl", "launcher" : 
 sv_allow_lobby_connect_only              : 1        :                  : If set, players may only join this server from matchmaking lobby, may not connect directly.
 sv_allow_votes                           : 1        : , "sv", "launcher" : Allow voting? (Requires mod's support first.)
@@ -3777,6 +3779,7 @@ sv_hibernate_postgame_delay              : 5        : , "launcher"     : # of se
 sv_hibernate_when_empty                  : 1        : , "launcher"     : Puts the server into extremely low CPU usage mode when no clients connected
 sv_hosting_lobby                         : 0        : , "rep", "launcher" : 
 sv_infected_ceda_vomitjar_probability    : 0.1      : , "sv", "cheat"  : 
+sv_infected_police_tonfa_probability     : 0.03     : , "sv", "cheat"  : 
 sv_infected_riot_control_tonfa_probability : 0.15     : , "sv", "cheat"  : 
 sv_infected_scale_max                    : 1        : , "sv", "launcher" : 
 sv_infected_scale_min                    : 1        : , "sv", "launcher" : 
@@ -3855,6 +3858,7 @@ sv_pvsskipanimation                      : 1        : , "a", "sv"      : Skips S
 sv_pz_endgame_vote_period                : 12       : , "sv", "launcher" : How long players get to vote to play again in a game with player controlled zombies.
 sv_pz_endgame_vote_post_period           : 5        : , "sv", "launcher" : Post period after end game vote.
 sv_querycache_stats                      : cmd      : , "sv"           : Display status of the query cache (client only)
+sv_quota_stringcmdspersecond             : 40       :                  : How many string commands per second clients are allowed to submit, 0 to disallow all string commands
 sv_ragdoll_maxcount                      : 75       : , "sv", "launcher" : Clients will only show this many ragdolls overall
 sv_ragdoll_maxcount_boss                 : 3        : , "sv", "launcher" : Clients will only show this many boss ragdolls
 sv_ragdoll_maxcount_generic              : 60       : , "sv", "launcher" : Clients will only show this many generic infected ragdolls
@@ -3966,7 +3970,6 @@ sv_zoo_wrap_skin                         : 1        : , "sv", "launcher" : Wheth
 sys_attract_mode_timeout                 : 120      : , "cl", "launcher" : 
 sys_minidumpexpandedspew                 : 1        : , "launcher"     : 
 sys_minidumpspewlines                    : 500      :                  : Lines of crash dump console spew to keep.
-
 T
 tank_attack_range                        : 50       : , "cheat", "rep", "cl" : Distance from Survivor that tank triggers own swing.
 tank_auto_swing                          : 0        : , "cheat", "rep", "cl" : 
@@ -4165,7 +4168,6 @@ tv_stoprecord                            : cmd      :                  : Stops S
 tv_timeout                               : 30       : , "launcher"     : SourceTV connection timeout in seconds.
 tv_title                                 : SourceTV : , "launcher"     : Set title for SourceTV spectator UI
 tv_transmitall                           : 0        : , "rep", "launcher" : Transmit all entities (not only director view)
-
 U
 ui_blogpost_scroll_speed                 : 4        : , "cl", "launcher" : 
 ui_blogpost_upload_retry_time            : 20       : , "cl", "launcher" : 
@@ -4196,7 +4198,7 @@ ui_old_options_menu                      : 0        : , "cl", "matsys", "launche
 ui_play_online_browser                   : 1        : , "cl"           : Whether play online displays a browser or plain search dialog.
 ui_posedebug_fade_in_time                : 0.2      : , "cheat", "norecord", "cl" : Time during which a new pose activity layer is shown in green in +posedebug UI
 ui_posedebug_fade_out_time               : 0.8      : , "cheat", "norecord", "cl" : Time to keep a no longer active pose activity layer in red until removing it from +posedebug UI
-ui_public_lobby_filter_campaign          : notinstalledaddon : , "a", "cl"      : Filter type for campaigns on the public lobby display
+ui_public_lobby_filter_campaign          :          : , "a", "cl"      : Filter type for campaigns on the public lobby display
 ui_public_lobby_filter_difficulty2       :          : , "a", "cl"      : Filter type for difficulty on the public lobby display
 ui_public_lobby_filter_status            :          : , "a", "cl"      : Filter type for game status on the public lobby display
 ui_pump_dlc_mount_content                : cmd      : , "cl", "launcher" : 
@@ -4226,7 +4228,6 @@ use                                      : cmd      : , "sv"           : Use a p
 -use                                     : cmd      : , "cl"           : 
 user                                     : cmd      :                  : Show user data.
 users                                    : cmd      :                  : Show user info for players on server.
-
 V
 v_centermove                             : 0.15     : , "cl", "launcher" : 
 v_centerspeed                            : 500      : , "cl", "launcher" : 
@@ -4316,7 +4317,7 @@ vm_debug                                 : 0        : , "cheat", "cl"  :
 vm_draw_addon                            : 1        : , "cl", "launcher" : 
 vm_draw_always                           : 0        : , "cl", "launcher" : 
 vm_fade                                  : 1        : , "cl", "launcher" : 
-voice_all_icons                          : 0        : , "cl", "launcher" : Draw all players' voice icons
+voice_all_icons                          : 0        : , "cheat", "cl"  : Draw all players' voice icons
 voice_avggain                            : 0.5      : , "launcher"     : 
 voice_clientdebug                        : 0        : , "cl", "launcher" : 
 voice_debugfeedback                      : 0        : , "launcher"     : 
@@ -4438,7 +4439,6 @@ vs_threat_initial_distance_min           : 3000     : , "sv", "cheat"  : Min dis
 vs_threat_radius                         : 200      : , "sv", "cheat"  : Distance from the escape route for placing threats
 vs_tiebreak_bonus                        : 25       : , "cheat", "rep", "cl" : Score awarded for winning a versus tiebreaker
 vtune                                    : cmd      :                  : Controls VTune's sampling.
-
 W
 +walk                                    : cmd      : , "cl"           : 
 -walk                                    : cmd      : , "cl"           : 
@@ -4460,8 +4460,6 @@ witch_rage_ramp_duration                 : 5.0      : , "sv", "launcher" :
 workshop_filter_items_by_history         : 0        : , "cheat"        : Tells the client if it should filter items using the play history.
 writeid                                  : cmd      :                  : Writes a list of permanently-banned user IDs to banned_user.cfg.
 writeip                                  : cmd      :                  : Save the ban list to banned_ip.cfg.
-
-
 X
 x360_audio_english                       : 0        : , "cl", "launcher" : Keeps track of whether we're forcing english in a localized language.
 xbox_autothrottle                        : 1        : , "a", "sv"      : 
@@ -4473,9 +4471,8 @@ xload                                    : cmd      :                  : Load a 
 xlook                                    : cmd      : , "cl"           : 
 xmove                                    : cmd      : , "cl"           : 
 xsave                                    : cmd      : , "norecord"     : Saves current game to a 360 storage device.
-
 Y
-n/a
+N/A
 
 Z
 z_acquire_far_range                      : 2500     : , "sv", "cheat"  : 
@@ -4516,7 +4513,7 @@ z_background_limit                       : 20       : , "sv", "cheat"  : How man
 z_backspeed                              : 450      : , "cheat", "rep", "cl" : 
 z_bbq_min                                : 0.0      : , "sv", "launcher" : Min amount for the bbq effect
 z_bbq_rate                               : 0.005    : , "sv", "launcher" : How fast the bbq effect grows on burning players
-z_boomer_gibs                            : 0        : , "cheat", "cl"  : 
+z_boomer_gibs                            : 1        : , "cheat", "cl"  : 
 z_boomer_limit                           : 1        : , "sv", "cheat"  : 
 z_boomer_near_dist                       : 180      : , "sv", "cheat"  : 
 z_boss_crouch                            : 0        : , "sv", "cheat"  : Forces boss zombie bots to crouch
@@ -4642,6 +4639,7 @@ z_fatal_blast_min_ragdolls               : 2        : , "sv", "launcher" :
 z_female_boomer_spawn_chance             : 25       : , "sv", "cheat"  : **Chance (0 - 100) if a female Boomer shouldn't be allowed to spawn. Setting to 100 means no female Boomers.
 z_finale_chance                          : 100      : , "sv", "cheat"  : 
 z_finale_ghost_player_spawn_on_survivor  : 1        : , "sv", "cheat"  : If set to zero, ghost spawn warping in finale's put the ghost out of the world instead of cycling through survivors.
+z_finale_spawn_mob_safety_range          : 600      : , "sv", "cheat"  : 
 z_finale_spawn_safety_range              : 300      : , "sv", "cheat"  : 
 z_finale_spawn_safety_range_override     : 0.0      : , "sv", "launcher" : 
 z_finale_spawn_tank_safety_range         : 600      : , "sv", "cheat"  : 
@@ -4874,7 +4872,6 @@ z_play_activity                          : cmd      : , "sv", "cheat"  : Play a 
 z_player_lunge_up                        : 150      : , "cheat", "rep", "cl" : 
 z_player_zombie_debug                    : 0        : , "sv", "cheat"  : 
 z_player_zombie_land_delay               : 0.5      : , "sv", "cheat"  : 
-z_player_zombie_min_dead_time            : 2        : , "sv", "cheat"  : The minimum time a PC zombie must be dead before being eligible to respawn
 z_population                             : c1streets : , "sv", "launcher" : Default population on the current map (saved/loaded in the nav mesh)
 z_pounce_allow_partial_hidden            : 1        : , "sv", "cheat"  : 
 z_pounce_crouch_delay                    : 1        : , "cheat", "rep", "cl" : 
@@ -5138,3 +5135,4 @@ z_zombie_lunge_push                      : 0        : , "sv", "cheat"  : Does th
 +zoom                                    : cmd      : , "cl"           : 
 -zoom                                    : cmd      : , "cl"           : 
 zoom_sensitivity_ratio                   : 1.0      : , "cl", "launcher" : Additional mouse sensitivity scale factor applied when FOV is zoomed in.
+(5099 total convars/concommands)
