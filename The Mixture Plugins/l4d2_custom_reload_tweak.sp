@@ -16,6 +16,7 @@ new Handle:hCvarReloadSpeedSniperScout;
 new Handle:hCvarReloadSpeedSniperAWP;
 new Handle:hCvarReloadSpeedSniperHR;
 new Handle:hCvarReloadSpeedSniperMT;
+new Handle:hCvarReloadSpeedMP5;
 
 public Plugin:myinfo =
 {
@@ -40,6 +41,7 @@ public OnPluginStart()
 	hCvarReloadSpeedSniperMT = CreateConVar("l4d2_reload_speed_mt", "0", "Reload duration of Military Sniper", FCVAR_CHEAT|FCVAR_NOTIFY, true, 0.0, true, 10.0);
 	hCvarReloadSpeedRifleSCAR = CreateConVar("l4d2_reload_speed_scar", "0", "Reload duration of SCAR", FCVAR_CHEAT|FCVAR_NOTIFY, true, 0.0, true, 10.0);
 	hCvarReloadSpeedRifleM16 = CreateConVar("l4d2_reload_speed_m16", "0", "Reload duration of M16", FCVAR_CHEAT|FCVAR_NOTIFY, true, 0.0, true, 10.0);
+	hCvarReloadSpeedMP5 = CreateConVar("l4d2_reload_speed_mp5", "0", "Reload duration of MP5", FCVAR_CHEAT|FCVAR_NOTIFY, true, 0.0, true, 10.0);
 	HookEvent("weapon_reload", OnWeaponReload, EventHookMode_Post);
 }
 
@@ -113,6 +115,11 @@ public OnWeaponReload(Handle:event, String:name[], bool:dontBroadcast)
 	{
 		originalReloadDuration = 3.501678;
 		alteredReloadDuration = GetConVarFloat(hCvarReloadSpeedSniperMT);
+	}
+	else if (weaponId == WEPID_SMG_MP5)
+	{
+		originalReloadDuration = 3.013781;
+		alteredReloadDuration = GetConVarFloat(hCvarReloadSpeedMP5);
 	}
 	else
 	{
@@ -198,6 +205,11 @@ public Action:OnPlayerRunCmd(client, &buttons)
 	{
 		originalReloadDuration = 3.501678;
 		alteredReloadDuration = GetConVarFloat(hCvarReloadSpeedSniperMT);
+	}
+	else if (weaponId == WEPID_SMG_MP5)
+	{
+		originalReloadDuration = 3.013781;
+		alteredReloadDuration = GetConVarFloat(hCvarReloadSpeedMP5);
 	}
 	else
 	{
