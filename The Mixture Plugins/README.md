@@ -40,3 +40,6 @@ Penalty Bonus与Skill Detect结合的诡异插件，检测到一些特殊事件�
 
 ## MedKitNerf
 削弱急救包恢复效果，黑白状态下打包仅恢复至一倒状态（警告，可能会有少量杂余error出现在error.log里）
+
+## InfectedStageDamage
+特感伤害按照控制生还者时间推移而增加
