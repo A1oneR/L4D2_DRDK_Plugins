@@ -229,10 +229,7 @@ public Action: Event_ChargePummelStart( Handle:event, const String:name[], bool:
 public Action: Event_JockeyRide( Handle:event, const String:name[], bool:dontBroadcast )
 {
     new client = GetClientOfUserId( GetEventInt(event, "userid") );
-    new victim = GetClientOfUserId( GetEventInt(event, "victim") );
-    
-    if ( !IS_VALID_INFECTED(client) || !IS_VALID_SURVIVOR(victim) ) { return Plugin_Continue; }
-    
+  
     bRidden[client] = true;
     
     return Plugin_Continue;
