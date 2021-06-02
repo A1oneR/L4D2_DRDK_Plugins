@@ -34,6 +34,8 @@ new Handle:hCvarChargerClawDMGMaxStage;
 new Handle:hCvarChargerClawDMGPerStage;
 new Handle:hCvarBoomerClawDMGMaxStage;
 new Handle:hCvarBoomerClawDMGPerStage;
+new Handle:hCvarChargerDMG;
+new Handle:hCvarChargerClawDMG;
 
 new Float:HunterDmgTimePerStage;
 new Float:JockeyDmgTimePerStage;
@@ -54,8 +56,8 @@ new BoomerClawDmgMaxStage;
 new BoomerClawDmgPerStage;
 
 new Handle:OriginBoomerClawDMG;
-new Handle:OriginChargerClawDMG;
-new Handle:OriginChargerPunchDMG;
+new OriginChargerClawDMG;
+new OriginChargerPunchDMG;
 new Handle:OriginHunterClawDMG;
 new Handle:OriginHunterPounceDMG;
 new Handle:OriginJockeyClawDMG;
@@ -83,12 +85,12 @@ new bool:bLateLoad;
 
 enum TankOrSIWeapon
 {
-    TANKWEAPON,
-    CHARGERWEAPON,
+        TANKWEAPON,
+        CHARGERWEAPON,
 	BOOMERWEAPON,
 	HUNTERWEAPON,
 	JOCKEYWEAPON,
-    SIWEAPON
+        SIWEAPON
 }
 
 public APLRes:AskPluginLoad2(Handle:plugin, bool:late, String:error[], errMax) 
@@ -102,7 +104,7 @@ public Plugin:myinfo =
     name = "L4D2 Infected Stage Damage",
     author = "A1R",
     description = "Customize the infected damage in stage.",
-    version = "0.1",
+    version = "0.3",
     url = "https://github.com/A1oneR/L4D2_DRDK_Plugins"
 };
 
@@ -132,6 +134,8 @@ public OnPluginStart()
 	hCvarChargerClawDMGPerStage = CreateConVar("l4d2_charger_claw_dmg_perstage", "2", "For Each Stage the Claw DMG added.");
 	hCvarBoomerClawDMGMaxStage = CreateConVar("l4d2_boomer_claw_dmg_maxstage", "4", "Maximum Stage of the Claw DMG can be done.");
 	hCvarBoomerClawDMGPerStage = CreateConVar("l4d2_boomer_claw_dmg_perstage", "2", "For Each Stage the Claw DMG added.");
+	hCvarChargerDMG = CreateConVar("charger_dmg_pound", "10", "Special for charger pound dmg since original plugin may have bug.");
+	hCvarChargerClawDMG = CreateConVar("charger_dmg_punch", "6", "Special for charger punch dmg since original plugin may have bug.");
 
         if (bLateLoad) 
         {
@@ -144,7 +148,7 @@ public OnPluginStart()
             }
         }
 		// trie
-    hInflictorTrie = BuildInflictorTrie();
+        hInflictorTrie = BuildInflictorTrie();
 }
 
 public OnConfigsExecuted()
@@ -169,8 +173,8 @@ public OnConfigsExecuted()
 	OriginHunterClawDMG = FindConVar("hunter_pz_claw_dmg");
 	OriginJockeyRideDMG = FindConVar("z_jockey_ride_damage");
 	OriginJockeyClawDMG = FindConVar("jockey_pz_claw_dmg");
-	OriginChargerPunchDMG = FindConVar("charger_dmg_pound");
-	OriginChargerClawDMG = FindConVar("charger_dmg_punch");
+	OriginChargerPunchDMG = GetConVarInt(hCvarChargerDMG);
+	OriginChargerClawDMG = GetConVarInt(hCvarChargerClawDMG);
 	OriginBoomerClawDMG = FindConVar("boomer_pz_claw_dmg");
 }
 
@@ -341,7 +345,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		        //PrintToChatAll("It's A Charger Pounding."); //DEBUG
 			bGhost[attacker] = false;
 		        bShoved[attacker] = false;
-			float OCPDMG = GetConVarFloat(OriginChargerPunchDMG);
+			float OCPDMG = float(OriginChargerPunchDMG);
 			if (OCPDMG <= 0.0)
 			{
 			    OCPDMG = 15.0;
@@ -360,7 +364,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		else
 		{
 		        //PrintToChatAll("It's A Charger Claw."); //DEBUG
-			float OCCDMG = GetConVarFloat(OriginChargerClawDMG);
+			float OCCDMG = float(OriginChargerClawDMG);
 			if (OCCDMG <= 0.0)
 			{
 			    OCCDMG = 10.0;
