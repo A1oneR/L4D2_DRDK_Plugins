@@ -10,6 +10,7 @@
 #define IS_VALID_INGAME(%1)     (IS_VALID_CLIENT(%1) && IsClientInGame(%1))
 #define IS_VALID_INFECTED(%1)   (IS_VALID_INGAME(%1) && IS_INFECTED(%1))
 #define IS_VALID_SURVIVOR(%1)   (IS_VALID_INGAME(%1) && IS_SURVIVOR(%1))
+#define TEAM_SURVIVOR           2 
 #define TEAM_INFECTED           3
 
 #define ZC_BOOMER       2
@@ -60,6 +61,8 @@ new Handle:OriginHunterPounceDMG;
 new Handle:OriginJockeyClawDMG;
 new Handle:OriginJockeyRideDMG;
 
+new Handle: hInflictorTrie = INVALID_HANDLE;
+
 new HunterStage[MAXPLAYERS + 1];
 new HunterStageClaw[MAXPLAYERS + 1];
 new JockeyStage[MAXPLAYERS + 1];
@@ -77,6 +80,16 @@ new bool:StartHunterPounceTimer[MAXPLAYERS + 1];
 new bool:StartJockeyRideTimer[MAXPLAYERS + 1];
 
 new bool:bLateLoad;
+
+enum TankOrSIWeapon
+{
+    TANKWEAPON,
+    CHARGERWEAPON,
+	BOOMERWEAPON,
+	HUNTERWEAPON,
+	JOCKEYWEAPON,
+    SIWEAPON
+}
 
 public APLRes:AskPluginLoad2(Handle:plugin, bool:late, String:error[], errMax) 
 {
@@ -130,6 +143,8 @@ public OnPluginStart()
                 }
             }
         }
+		// trie
+    hInflictorTrie = BuildInflictorTrie();
 }
 
 public OnConfigsExecuted()
@@ -221,9 +236,35 @@ public Action: Event_JockeyRide( Handle:event, const String:name[], bool:dontBro
 
 public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damageType, &weapon, Float:damageForce[3], Float:damagePosition[3]) 
 {
-        if ( !IsClientAndInGame(victim) || !IsClientAndInGame(attacker) ) return Plugin_Handled;
+	if (!inflictor || !attacker || !victim || !IsValidEdict(victim) || !IsValidEdict(inflictor)) { return Plugin_Continue; }
+
+	// only check player-to-player damage
+	decl String:classname[64];
+	if (IsClientAndInGame(attacker) && IsClientAndInGame(victim))
+	{
+		if (attacker == inflictor)                                              // for claws
+		{
+			GetClientWeapon(inflictor, classname, sizeof(classname));
+		}
+		else
+		{
+			GetEdictClassname(inflictor, classname, sizeof(classname));         // for tank punch/rock
+		}
+	}
+	else { return Plugin_Continue; }
+
+	// check teams
+	if (GetClientTeam(attacker) != TEAM_INFECTED || GetClientTeam(victim) != TEAM_SURVIVOR) { return Plugin_Continue; }
+
+	// only allow selected infected
+	if (GetEntProp(attacker, Prop_Send, "m_zombieClass") != ZC_CHARGER && GetEntProp(attacker, Prop_Send, "m_zombieClass") != ZC_HUNTER && GetEntProp(attacker, Prop_Send, "m_zombieClass") != ZC_JOCKEY && GetEntProp(attacker, Prop_Send, "m_zombieClass") != ZC_BOOMER) { return Plugin_Continue; }
 	
-	if ( GetClientTeam(attacker) == TEAM_INFECTED && GetZombieClass(attacker) == ZC_HUNTER)
+	// only check tank punch/rock and SI claws (also rules out anything but infected-to-survivor damage)
+	new TankOrSIWeapon: inflictorID;
+	if (!GetTrieValue(hInflictorTrie, classname, inflictorID)) { return Plugin_Continue; }
+	if (inflictorID != CHARGERWEAPON && inflictorID != BOOMERWEAPON && inflictorID != HUNTERWEAPON && inflictorID != JOCKEYWEAPON) { return Plugin_Continue; }
+	
+	if ( inflictorID == HUNTERWEAPON)
 	{
 	        if (bPounced[attacker] == true)
 		{
@@ -258,7 +299,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			return Plugin_Changed;
 		}
 	}
-	else if (GetClientTeam(attacker) == TEAM_INFECTED && GetZombieClass(attacker) == ZC_JOCKEY)
+	else if (inflictorID == JOCKEYWEAPON)
 	{
 	        if (bRidden[attacker] == true)
 		{
@@ -293,7 +334,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			return Plugin_Changed;
 		}
 	}
-	else if (GetClientTeam(attacker) == TEAM_INFECTED && GetZombieClass(attacker) == ZC_CHARGER)
+	else if (inflictorID == CHARGERWEAPON)
 	{
 	        if (bCharged[attacker] == true)
 		{
@@ -336,7 +377,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			return Plugin_Changed;
 		}
 	}		
-	else if (GetClientTeam(attacker) == TEAM_INFECTED && GetZombieClass(attacker) == ZC_BOOMER)
+	else if (inflictorID == BOOMERWEAPON)
 	{
 	        //PrintToChatAll("It's A Boomer Claw."); //DEBUG
 		float OBCDMG = GetConVarFloat(OriginBoomerClawDMG);
@@ -351,7 +392,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		}
 		return Plugin_Changed;
 	}
-        return Plugin_Continue; 
+	return Plugin_Handled;
 }
 
 public Action:HunterStageIncrease(Handle:timer,any:userid)
@@ -390,6 +431,20 @@ public Action:JockeyStageIncrease(Handle:timer,any:userid)
 		return Plugin_Stop;
 	}
 	return Plugin_Continue;
+}
+
+Handle:BuildInflictorTrie()
+{
+    new Handle: trie = CreateTrie();
+    //SetTrieValue(trie, "weapon_tank_claw",      TANKWEAPON);
+    //SetTrieValue(trie, "tank_rock",             TANKWEAPON);
+    SetTrieValue(trie, "weapon_boomer_claw",    BOOMERWEAPON);
+    SetTrieValue(trie, "weapon_charger_claw",   CHARGERWEAPON);
+    SetTrieValue(trie, "weapon_hunter_claw",    HUNTERWEAPON);
+    SetTrieValue(trie, "weapon_jockey_claw",    JOCKEYWEAPON);
+    //SetTrieValue(trie, "weapon_smoker_claw",    SIWEAPON);
+    //SetTrieValue(trie, "weapon_spitter_claw",   SIWEAPON);
+    return trie;    
 }
 
 public L4D_OnEnterGhostState(client)
