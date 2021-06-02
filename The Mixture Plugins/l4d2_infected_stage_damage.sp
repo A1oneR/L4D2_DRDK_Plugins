@@ -290,9 +290,17 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		else
 		{
 		        //PrintToChatAll("It's A Hunter Claw."); //DEBUG
+			float oridamage = damage;
 			float OHCDMG = GetConVarFloat(OriginHunterClawDMG);
 			float StageDMG = float(HunterStageClaw[attacker] * HunterClawDmgPerStage);
-			damage = OHCDMG + StageDMG; //DMG Done TO Survivor.
+			if (oridamage >= OHCDMG + StageDMG) //Like HunterPouncing
+			{
+			    damage = oridamage;
+			}
+			else
+			{
+			    damage = OHCDMG + StageDMG; //DMG Done TO Survivor.
+			}
 			//PrintToChatAll("Hunter DMG Survivor For %.1f% damage, Stage %i.", damage, HunterStageClaw[attacker]); //DEBUG
 			HunterStageClaw[attacker] += 1;
 			if (HunterStageClaw[attacker] > HunterClawDmgMaxStage)
@@ -325,9 +333,17 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		else
 		{
 		        //PrintToChatAll("It's A Jockey Claw."); //DEBUG
+			float oridamage = damage;
 			float OJCDMG = GetConVarFloat(OriginJockeyClawDMG);
 			float StageDMG = float(JockeyStageClaw[attacker] * JockeyClawDmgPerStage);
-			damage = OJCDMG + StageDMG; //DMG Done TO Survivor.
+			if (oridamage >= OJCDMG + StageDMG) //Like JockeyPouncing
+			{
+			    damage = oridamage;
+			}
+			else
+			{
+			    damage = OJCDMG + StageDMG; //DMG Done TO Survivor.
+			}
 			//PrintToChatAll("Jockey DMG Survivor For %.1f% damage, Stage %i.", damage, JockeyStageClaw[attacker]); //DEBUG
 			JockeyStageClaw[attacker] += 1;
 			if (JockeyStageClaw[attacker] > JockeyClawDmgMaxStage)
