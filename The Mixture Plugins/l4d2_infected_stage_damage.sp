@@ -28,6 +28,7 @@ new Handle:hCvarHunterDMGPerStage;
 new Handle:hCvarHunterDMGTimePerStage;
 new Handle:hCvarHunterClawDMGMaxStage;
 new Handle:hCvarHunterClawDMGPerStage;
+new Handle:hCvarHunterIncapDMGBonus;
 new Handle:hCvarChargerDMGMaxStage;
 new Handle:hCvarChargerDMGPerStage;
 new Handle:hCvarChargerClawDMGMaxStage;
@@ -48,6 +49,7 @@ new ChargerDmgMaxStage;
 new ChargerDmgPerStage;
 new HunterClawDmgMaxStage;
 new HunterClawDmgPerStage;
+new HunterIncapDmgBonus;
 new JockeyClawDmgMaxStage;
 new JockeyClawDmgPerStage;
 new ChargerClawDmgMaxStage;
@@ -104,7 +106,7 @@ public Plugin:myinfo =
     name = "L4D2 Infected Stage Damage",
     author = "A1R",
     description = "Customize the infected damage in stage.",
-    version = "0.3",
+    version = "0.7",
     url = "https://github.com/A1oneR/L4D2_DRDK_Plugins"
 };
 
@@ -128,6 +130,7 @@ public OnPluginStart()
 	hCvarHunterDMGTimePerStage = CreateConVar("l4d2_hunter_dmg_time_perstage", "3", "How much time will the stage go on to the next one.");
 	hCvarHunterClawDMGMaxStage = CreateConVar("l4d2_hunter_claw_dmg_maxstage", "5", "Maximum Stage of the Claw DMG can be done.");
 	hCvarHunterClawDMGPerStage = CreateConVar("l4d2_hunter_claw_dmg_perstage", "2", "For Each Stage the Claw DMG added.");
+	hCvarHunterIncapDMGBonus = CreateConVar("l4d2_hunter_incap_dmg_bonus", "2", "Extra multiply damage to the incapped survivor.");
 	hCvarChargerDMGMaxStage = CreateConVar("l4d2_charger_dmg_maxstage", "4", "Maximum Stage of the DMG can be done.");
 	hCvarChargerDMGPerStage = CreateConVar("l4d2_charger_dmg_perstage", "4", "For Each Stage the DMG added.");
 	hCvarChargerClawDMGMaxStage = CreateConVar("l4d2_charger_claw_dmg_maxstage", "6", "Maximum Stage of the Claw DMG can be done.");
@@ -163,6 +166,7 @@ public OnConfigsExecuted()
 	HunterDmgTimePerStage = GetConVarFloat(hCvarHunterDMGTimePerStage);
 	HunterClawDmgMaxStage = GetConVarInt(hCvarHunterClawDMGMaxStage);
 	HunterClawDmgPerStage = GetConVarInt(hCvarHunterClawDMGPerStage);
+	HunterIncapDmgBonus = GetConVarInt(hCvarHunterIncapDMGBonus);
 	ChargerDmgMaxStage = GetConVarInt(hCvarChargerDMGMaxStage);
 	ChargerDmgPerStage = GetConVarInt(hCvarChargerDMGPerStage);
 	ChargerClawDmgMaxStage = GetConVarInt(hCvarChargerClawDMGMaxStage);
@@ -211,8 +215,8 @@ public Action: Event_LungePounce( Handle:event, const String:name[], bool:dontBr
         new client = GetClientOfUserId( GetEventInt(event, "userid") );
     
 	bPounced[client] = true;
-	
-        return Plugin_Continue;
+	bShoved[client] = false;
+	bGhost[client] = false;
 }
 
 public Action: Event_ChargePummelStart( Handle:event, const String:name[], bool:dontBroadcast )
@@ -231,6 +235,17 @@ public Action: Event_JockeyRide( Handle:event, const String:name[], bool:dontBro
     new client = GetClientOfUserId( GetEventInt(event, "userid") );
   
     bRidden[client] = true;
+	bShoved[client] = false;
+	bGhost[client] = false;
+}
+
+public Action: Event_PlayerSpawn( Handle:event, const String:name[], bool:dontBroadcast )
+{
+    new client = GetClientOfUserId(GetEventInt(event, "userid"));
+	bPounced[client] = false;
+    bRidden[client] = false;
+	bShoved[client] = false;
+	bGhost[client] = false;
     
     return Plugin_Continue;
 }
@@ -274,7 +289,15 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			bShoved[attacker] = false;
 			float OHPDMG = GetConVarFloat(OriginHunterPounceDMG);
 			float StageDMG = float(HunterStage[attacker] * HunterDmgPerStage);
+			float multiply = float(HunterIncapDmgBonus);
+			if (IsIncapped(victim) == true)
+			{
+			    damage = (OHPDMG + StageDMG) * multiply; //Extra DMG Done TO Incapped Survivor.
+			}
+			else
+			{
 		        damage = OHPDMG + StageDMG; //DMG Done TO Survivor.
+			}
 			//PrintToChatAll("Hunter DMG Survivor For %.1f% damage, Stage %i.", damage, HunterStage[attacker]); //DEBUG
 			if (StartHunterPounceTimer[attacker] == false)
 			{
@@ -419,6 +442,7 @@ public Action:HunterStageIncrease(Handle:timer,any:userid)
 	{
 	        HunterStage[Client] = 0;
 		//PrintToChatAll("Reset Hunter Pouncing Stage."); //DEBUG
+		    StartHunterPounceTimer[Client] = false;
 	        return Plugin_Stop;
 	}
 	HunterStage[Client]++;
@@ -438,6 +462,7 @@ public Action:JockeyStageIncrease(Handle:timer,any:userid)
 	{
 	        JockeyStage[Client] = 0;
 		//PrintToChatAll("Reset Jockey Riding Stage."); //DEBUG
+		    StartJockeyRideTimer[Client] = false;
 	        return Plugin_Stop;
 	}
 	JockeyStage[Client]++;
@@ -535,3 +560,9 @@ stock bool IsClientAndInGame(int index) {
 }
 
 stock int GetZombieClass(int client) { return GetEntProp(client, Prop_Send, "m_zombieClass"); }
+
+
+bool:IsIncapped(client)
+{
+	return bool:GetEntProp(client, Prop_Send, "m_isIncapacitated");
+}
