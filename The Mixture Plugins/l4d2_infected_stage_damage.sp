@@ -106,7 +106,7 @@ public Plugin:myinfo =
     name = "L4D2 Infected Stage Damage",
     author = "A1R",
     description = "Customize the infected damage in stage.",
-    version = "0.7",
+    version = "0.8",
     url = "https://github.com/A1oneR/L4D2_DRDK_Plugins"
 };
 
@@ -232,22 +232,24 @@ public Action: Event_ChargePummelStart( Handle:event, const String:name[], bool:
 
 public Action: Event_JockeyRide( Handle:event, const String:name[], bool:dontBroadcast )
 {
-    new client = GetClientOfUserId( GetEventInt(event, "userid") );
+        new client = GetClientOfUserId( GetEventInt(event, "userid") );
   
-    bRidden[client] = true;
+        bRidden[client] = true;
 	bShoved[client] = false;
 	bGhost[client] = false;
 }
 
 public Action: Event_PlayerSpawn( Handle:event, const String:name[], bool:dontBroadcast )
 {
-    new client = GetClientOfUserId(GetEventInt(event, "userid"));
+        new client = GetClientOfUserId(GetEventInt(event, "userid"));
 	bPounced[client] = false;
-    bRidden[client] = false;
+        bRidden[client] = false;
 	bShoved[client] = false;
 	bGhost[client] = false;
+	StartHunterPounceTimer[client] = false;
+	StartJockeyRideTimer[client] = false;
     
-    return Plugin_Continue;
+        return Plugin_Continue;
 }
 
 public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damageType, &weapon, Float:damageForce[3], Float:damagePosition[3]) 
@@ -442,7 +444,7 @@ public Action:HunterStageIncrease(Handle:timer,any:userid)
 	{
 	        HunterStage[Client] = 0;
 		//PrintToChatAll("Reset Hunter Pouncing Stage."); //DEBUG
-		    StartHunterPounceTimer[Client] = false;
+		StartHunterPounceTimer[Client] = false;
 	        return Plugin_Stop;
 	}
 	HunterStage[Client]++;
@@ -462,7 +464,7 @@ public Action:JockeyStageIncrease(Handle:timer,any:userid)
 	{
 	        JockeyStage[Client] = 0;
 		//PrintToChatAll("Reset Jockey Riding Stage."); //DEBUG
-		    StartJockeyRideTimer[Client] = false;
+		StartJockeyRideTimer[Client] = false;
 	        return Plugin_Stop;
 	}
 	JockeyStage[Client]++;
@@ -503,6 +505,8 @@ public L4D_OnEnterGhostState(client)
 	JockeyStageClaw[client] = 0;
 	ChargerStageClaw[client] = 0;
 	BoomerStageClaw[client] = 0;
+	StartHunterPounceTimer[client] = false;
+	StartJockeyRideTimer[client] = false;
 	//PrintToChatAll("Enter Ghost State,reset the stage."); //DEBUG
 }
 
@@ -523,6 +527,8 @@ public Action: Event_PlayerShoved( Handle:event, const String:name[], bool:dontB
 	JockeyStageClaw[victim] = 0;
 	ChargerStageClaw[victim] = 0;
 	BoomerStageClaw[victim] = 0;
+	StartHunterPounceTimer[victim] = false;
+	StartJockeyRideTimer[victim] = false;
 	//PrintToChatAll("Be Shoved,reset the stage."); //DEBUG
         return Plugin_Continue;
 }
@@ -545,6 +551,8 @@ public Action: Event_PlayerDeath( Handle:hEvent, const String:name[], bool:dontB
 	        JockeyStageClaw[victim] = 0;
 	        ChargerStageClaw[victim] = 0;
 	        BoomerStageClaw[victim] = 0;
+		StartHunterPounceTimer[victim] = false;
+	        StartJockeyRideTimer[victim] = false;
 		//PrintToChatAll("Died,reset the stage."); //DEBUG
     }
 	
