@@ -142,14 +142,14 @@ public Plugin:myinfo =
     name = "L4D2 Infected Stage Damage",
     author = "A1R",
     description = "Customize the infected damage in stage.",
-    version = "0.9.1",
+    version = "0.9.2",
     url = "https://github.com/A1oneR/L4D2_DRDK_Plugins"
 };
 
 public OnPluginStart()
 {
         HookEvent("jockey_ride",                Event_JockeyRide,               EventHookMode_Post);
-		HookEvent("jockey_ride_end",            Event_JockeyRideEnd,            EventHookMode_Post);
+	HookEvent("jockey_ride_end",            Event_JockeyRideEnd,            EventHookMode_Post);
 	//HookEvent("charger_carry_start",        Event_ChargeCarryStart,         EventHookMode_Post);
         //HookEvent("charger_carry_end",          Event_ChargeCarryEnd,           EventHookMode_Post);
 	HookEvent("charger_pummel_start",       Event_ChargePummelStart,        EventHookMode_Post);
@@ -256,7 +256,7 @@ public Action: Event_RoundStart( Handle:event, const String:name[], bool:dontBro
                 bCharged[i] = false;
 		bPounced[i] = false;
                 bRidden[i] = false;
-				bDraged[i] = false;
+		bDraged[i] = false;
 		
 		HunterStage[i] = 0;
 		HunterStageClaw[i] = 0;
@@ -312,9 +312,9 @@ public Action: Event_ChargePummelStart( Handle:event, const String:name[], bool:
 
 public Action: Event_ChargePummelEnd( Handle:event, const String:name[], bool:dontBroadcast )
 {
-    new client = GetClientOfUserId( GetEventInt(event, "userid") );
+        new client = GetClientOfUserId( GetEventInt(event, "userid") );
 
-    bCharged[client] = false;
+        bCharged[client] = false;
 	ChargerStage[client] = 0;
 }
 
@@ -359,7 +359,7 @@ public Action: Event_PlayerSpawn( Handle:event, const String:name[], bool:dontBr
         new client = GetClientOfUserId(GetEventInt(event, "userid"));
 	bPounced[client] = false;
         bRidden[client] = false;
-		bDraged[client] = false;
+	bDraged[client] = false;
 	bShoved[client] = false;
 	bGhost[client] = false;
 	StartHunterPounceTimer[client] = false;
@@ -401,7 +401,8 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 	
 	if ( inflictorID == HUNTERWEAPON)
 	{
-	    if (GetConVarInt(hCvarEnableHunter) == 0) return Plugin_Continue;
+	        if (GetConVarInt(hCvarEnableHunter) == 0) return Plugin_Continue;
+
 	        if (bPounced[attacker] == true)
 		{
 		        //PrintToChatAll("It's A Hunter Pouncing."); //DEBUG
@@ -416,7 +417,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			} 
 			else
 			{
-		        damage = OHPDMG + StageDMG; //DMG Done TO Survivor.
+		            damage = OHPDMG + StageDMG; //DMG Done TO Survivor.
 			}
 			//PrintToChatAll("Hunter DMG Survivor For %.1f% damage, Stage %i.", damage, HunterStage[attacker]); //DEBUG
 			if (StartHunterPounceTimer[attacker] == false)
@@ -453,7 +454,8 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 	}
 	else if (inflictorID == JOCKEYWEAPON)
 	{
-	    if (GetConVarInt(hCvarEnableJockey) == 0) return Plugin_Continue;
+	        if (GetConVarInt(hCvarEnableJockey) == 0) return Plugin_Continue;
+
 	        if (bRidden[attacker] == true)
 		{
 		        //PrintToChatAll("It's A Jockey Riding."); //DEBUG
@@ -497,7 +499,8 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 	}
 	else if ( inflictorID == SMOKERWEAPON)
 	{
-	    if (GetConVarInt(hCvarEnableSmoker) == 0) return Plugin_Continue;
+	        if (GetConVarInt(hCvarEnableSmoker) == 0) return Plugin_Continue;
+
 	        if (bDraged[attacker] == true)
 		{
 		        //PrintToChatAll("It's A Smoker Draging."); //DEBUG
@@ -512,7 +515,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			}
 			else
 			{
-		        damage = OHPDMG + StageDMG; //DMG Done TO Survivor.
+		            damage = OHPDMG + StageDMG; //DMG Done TO Survivor.
 			}
 			//PrintToChatAll("Smoker DMG Survivor For %.1f% damage, Stage %i.", damage, SmokerStage[attacker]); //DEBUG
 			if (StartSmokerDragTimer[attacker] == false)
@@ -541,7 +544,8 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 	}
 	else if (inflictorID == CHARGERWEAPON)
 	{
-	    if (GetConVarInt(hCvarEnableCharger) == 0) return Plugin_Continue;
+	        if (GetConVarInt(hCvarEnableCharger) == 0) return Plugin_Continue;
+
 	        if (bCharged[attacker] == true)
 		{
 		        //PrintToChatAll("It's A Charger Pounding."); //DEBUG
@@ -592,7 +596,8 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 	}		
 	else if (inflictorID == BOOMERWEAPON)
 	{
-	    if (GetConVarInt(hCvarEnableBoomer) == 0) return Plugin_Continue;
+	        if (GetConVarInt(hCvarEnableBoomer) == 0) return Plugin_Continue;
+
 	        //PrintToChatAll("It's A Boomer Claw."); //DEBUG
 		float OBCDMG = GetConVarFloat(OriginBoomerClawDMG);
 		float StageDMG = float(BoomerStageClaw[attacker] * BoomerClawDmgPerStage);
@@ -608,7 +613,8 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 	}
 	else if (inflictorID == SPITTERWEAPON)
 	{
-	    if (GetConVarInt(hCvarEnableSpitter) == 0) return Plugin_Continue;
+	        if (GetConVarInt(hCvarEnableSpitter) == 0) return Plugin_Continue;
+
 	        //PrintToChatAll("It's A Spitter Claw."); //DEBUG
 		float OBCDMG = GetConVarFloat(OriginSpitterClawDMG);
 		float StageDMG = float(SpitterStageClaw[attacker] * SpitterClawDmgPerStage);
@@ -628,7 +634,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 public Action:HunterStageIncrease(Handle:timer,any:userid)
 {
 	new Client = GetClientOfUserId(userid);
-	if(!IsPlayerAlive(Client) || bShoved[Client] == true || bGhost[Client] == true) 
+	if(!IsPlayerAlive(Client) || bShoved[Client] == true || bGhost[Client] == true || bPounced[Client] == false) 
 	{
 	        HunterStage[Client] = 0;
 		//PrintToChatAll("Reset Hunter Pouncing Stage."); //DEBUG
@@ -648,7 +654,7 @@ public Action:HunterStageIncrease(Handle:timer,any:userid)
 public Action:JockeyStageIncrease(Handle:timer,any:userid)
 {
 	new Client = GetClientOfUserId(userid);
-	if(!IsPlayerAlive(Client) || bShoved[Client] == true || bGhost[Client] == true) 
+	if(!IsPlayerAlive(Client) || bShoved[Client] == true || bGhost[Client] == true || bRidden[Client] == false) 
 	{
 	        JockeyStage[Client] = 0;
 		//PrintToChatAll("Reset Jockey Riding Stage."); //DEBUG
@@ -668,7 +674,7 @@ public Action:JockeyStageIncrease(Handle:timer,any:userid)
 public Action:SmokerStageIncrease(Handle:timer,any:userid)
 {
 	new Client = GetClientOfUserId(userid);
-	if(!IsPlayerAlive(Client) || bShoved[Client] == true || bGhost[Client] == true) 
+	if(!IsPlayerAlive(Client) || bShoved[Client] == true || bGhost[Client] == true || bDraged[Client] == false) 
 	{
 	        SmokerStage[Client] = 0;
 		//PrintToChatAll("Reset Smoker Draging Stage."); //DEBUG
@@ -738,12 +744,12 @@ public Action: Event_PlayerShoved( Handle:event, const String:name[], bool:dontB
 	ChargerStage[victim] = 0;
 	if ( GetConVarInt(hCvarEnableShoveResetClawStage) >= 1)
 	{
-	    HunterStageClaw[victim] = 0;
-	    JockeyStageClaw[victim] = 0;
-	    ChargerStageClaw[victim] = 0;
+	        HunterStageClaw[victim] = 0;
+	        JockeyStageClaw[victim] = 0;
+	        ChargerStageClaw[victim] = 0;
 		SmokerStageClaw[victim] = 0;
-	    BoomerStageClaw[victim] = 0;
-	    SpitterStageClaw[victim] = 0;
+	        BoomerStageClaw[victim] = 0;
+	        SpitterStageClaw[victim] = 0;
 	}
 	StartHunterPounceTimer[victim] = false;
 	StartJockeyRideTimer[victim] = false;
@@ -763,19 +769,19 @@ public Action: Event_PlayerDeath( Handle:hEvent, const String:name[], bool:dontB
 		bPounced[victim] = false;
 	        bRidden[victim] = false;
 	        bCharged[victim] = false;
-			bDraged[victim] = false;
+		bDraged[victim] = false;
 	        HunterStage[victim] = 0;
 	        JockeyStage[victim] = 0;
 	        ChargerStage[victim] = 0;
 	        HunterStageClaw[victim] = 0;
 	        JockeyStageClaw[victim] = 0;
 	        ChargerStageClaw[victim] = 0;
-			SmokerStageClaw[victim] = 0;
+		SmokerStageClaw[victim] = 0;
 	        BoomerStageClaw[victim] = 0;
-			SpitterStageClaw[victim] = 0;
+		SpitterStageClaw[victim] = 0;
 		StartHunterPounceTimer[victim] = false;
 	        StartJockeyRideTimer[victim] = false;
-			StartSmokerDragTimer[victim] = false;
+		StartSmokerDragTimer[victim] = false;
 		//PrintToChatAll("Died,reset the stage."); //DEBUG
     }
 	
