@@ -142,7 +142,7 @@ public Plugin:myinfo =
     name = "L4D2 Infected Stage Damage",
     author = "A1R",
     description = "Customize the infected damage in stage.",
-    version = "0.9.2",
+    version = "0.9.4",
     url = "https://github.com/A1oneR/L4D2_DRDK_Plugins"
 };
 
@@ -156,6 +156,7 @@ public OnPluginStart()
 	HookEvent("charger_pummel_end",         Event_ChargePummelEnd,          EventHookMode_Post);
 	HookEvent("lunge_pounce",               Event_LungePounce,              EventHookMode_Post);
 	HookEvent("pounce_end",                 Event_PounceEnd,                EventHookMode_Post);
+	HookEvent("pounce_stopped",             Event_PounceStopped,            EventHookMode_Post);
 	HookEvent("tongue_grab",                OnTongueGrab,                   EventHookMode_Post);
 	HookEvent("tongue_pull_stopped",        Event_TonguePullStopped,        EventHookMode_Post);
 	HookEvent("player_death",               Event_PlayerDeath,              EventHookMode_Pre);
@@ -291,6 +292,15 @@ public Action: Event_LungePounce( Handle:event, const String:name[], bool:dontBr
 }
 
 public Action: Event_PounceEnd( Handle:event, const String:name[], bool:dontBroadcast )
+{
+        new client = GetClientOfUserId( GetEventInt(event, "userid") );
+    
+	bPounced[client] = false;
+	HunterStage[client] = 0;
+	StartHunterPounceTimer[client] = false;
+}
+
+public Action: Event_PounceStopped( Handle:event, const String:name[], bool:dontBroadcast )
 {
         new client = GetClientOfUserId( GetEventInt(event, "userid") );
     
@@ -443,6 +453,10 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			    damage = OHCDMG + StageDMG; //DMG Done TO Survivor.
 			}
 			//PrintToChatAll("Hunter DMG Survivor For %.1f% damage, Stage %i.", damage, HunterStageClaw[attacker]); //DEBUG
+			if (IsIncapped(victim) == true)
+			{
+			    HunterStageClaw[attacker] -= 1; //Infected will not increase their stage by hurting the incapped survivor.
+			}
 			HunterStageClaw[attacker] += 1;
 			if (HunterStageClaw[attacker] > HunterClawDmgMaxStage)
 			{
@@ -488,6 +502,10 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			    damage = OJCDMG + StageDMG; //DMG Done TO Survivor.
 			}
 			//PrintToChatAll("Jockey DMG Survivor For %.1f% damage, Stage %i.", damage, JockeyStageClaw[attacker]); //DEBUG
+			if (IsIncapped(victim) == true)
+			{
+			    JockeyStageClaw[attacker] -= 1; //Infected will not increase their stage by hurting the incapped survivor.
+			}
 			JockeyStageClaw[attacker] += 1;
 			if (JockeyStageClaw[attacker] > JockeyClawDmgMaxStage)
 			{
@@ -533,6 +551,11 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			float StageDMG = float(SmokerStageClaw[attacker] * SmokerClawDmgPerStage);
 			damage = OHCDMG + StageDMG; //DMG Done TO Survivor.
 			//PrintToChatAll("Smoker DMG Survivor For %.1f% damage, Stage %i.", damage, SmokerStageClaw[attacker]); //DEBUG
+			if (IsIncapped(victim) == true)
+			{
+			    SmokerStageClaw[attacker] -= 1; //Infected will not increase their stage by hurting the incapped survivor.
+			}
+			
 			SmokerStageClaw[attacker] += 1;
 			if (SmokerStageClaw[attacker] > SmokerClawDmgMaxStage)
 			{
@@ -585,6 +608,10 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			    damage = OCCDMG + StageDMG; //DMG Done TO Survivor.
 			}
 			//PrintToChatAll("Charger DMG Survivor For %.1f% damage, Stage %i.", damage, ChargerStageClaw[attacker]); //DEBUG
+			if (IsIncapped(victim) == true)
+			{
+			    ChargerStageClaw[attacker] -= 1; //Infected will not increase their stage by hurting the incapped survivor.
+			}
 			ChargerStageClaw[attacker] += 1;
 			if (ChargerStageClaw[attacker] > ChargerClawDmgMaxStage)
 			{
@@ -603,6 +630,10 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		float StageDMG = float(BoomerStageClaw[attacker] * BoomerClawDmgPerStage);
 		damage = OBCDMG + StageDMG; //DMG Done TO Survivor.
 		//PrintToChatAll("Boomer DMG Survivor For %.1f% damage, Stage %i.", damage, BoomerStageClaw[attacker]); //DEBUG
+		if (IsIncapped(victim) == true)
+			{
+			    BoomerStageClaw[attacker] -= 1; //Infected will not increase their stage by hurting the incapped survivor.
+			}
 		BoomerStageClaw[attacker] += 1;
 		if (BoomerStageClaw[attacker] > BoomerClawDmgMaxStage)
 		{
@@ -620,6 +651,10 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		float StageDMG = float(SpitterStageClaw[attacker] * SpitterClawDmgPerStage);
 		damage = OBCDMG + StageDMG; //DMG Done TO Survivor.
 		//PrintToChatAll("Spitter DMG Survivor For %.1f% damage, Stage %i.", damage, SpitterStageClaw[attacker]); //DEBUG
+		if (IsIncapped(victim) == true)
+			{
+			    SpitterStageClaw[attacker] -= 1; //Infected will not increase their stage by hurting the incapped survivor.
+			}
 		SpitterStageClaw[attacker] += 1;
 		if (SpitterStageClaw[attacker] > SpitterClawDmgMaxStage)
 		{
