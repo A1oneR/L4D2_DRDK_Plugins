@@ -1,0 +1,13 @@
+patch
+{
+	include "materials\AirServer\Ansel\shader.vmt"
+	insert
+	{
+		"$basetexture" "AirServer\Ansel\anselcloth2"
+
+		"$detail" "AirServer\Ansel\black"
+		"$detailscale" "1"
+		"$detailblendfactor" ".3"
+		"$detailblendmode" "5"
+	}
+}

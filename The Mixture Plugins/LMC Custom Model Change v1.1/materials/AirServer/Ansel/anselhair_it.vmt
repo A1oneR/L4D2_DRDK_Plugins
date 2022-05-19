@@ -1,0 +1,8 @@
+patch
+{
+	include "materials\AirServer\Ansel\it.vmt"
+	insert
+	{
+		$basetexture "AirServer/Ansel/anselhair"
+	}
+}

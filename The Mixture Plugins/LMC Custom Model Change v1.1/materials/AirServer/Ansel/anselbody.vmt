@@ -1,0 +1,14 @@
+patch
+{
+	include "materials\AirServer\Ansel\shader.vmt"
+	insert
+	{
+		"$basetexture" "AirServer\Ansel\anselbody"
+	}
+	replace
+	{
+		"$lightwarptexture" "AirServer\Ansel\shader\skinwarp"
+		$alphatest 0
+		$nocull 0
+	}
+}

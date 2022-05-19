@@ -1,0 +1,19 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "AirServer\Ansel\face"
+	"$bumpmap" "AirServer\Ansel\normal"
+
+	"$lightwarptexture" "AirServer\Ansel\shader\facewarp"
+
+	"$phong" "1"
+	"$phongboost"	"24"
+	"$phongalbedotint" "1"
+	"$phongexponenttexture" "AirServer\Ansel\phong_exp"
+	"$phongfresnelranges"	"[0 0 1]"
+
+	"$rimlight"               "1"
+	"$rimlightexponent"       "3"
+	"$rimlightboost"          "4"
+
+	$nodecal 1
+}

@@ -1,0 +1,32 @@
+VertexLitGeneric
+{
+$bumpmap "AirServer/Ansel/normal"
+$lightwarptexture "AirServer/Ansel/shader/basewarp"
+$phongexponenttexture "AirServer/Ansel/phong_exp"
+$phong "1"
+$phongboost ".1"
+$phongalbedotint "1"
+$phongfresnelranges "[1 .1 .1]"
+$diffuseexp "1.5"
+$alphatest 1
+$allowalphatocoverage 1
+$nocull 1
+$nodecal 1
+$detail "models\survivors\survivor_it.vtf"
+$detailscale 3
+$detailblendfactor ".001" 
+$detailblendmode 0
+$ITAmount 0
+Proxies
+{
+IT
+{
+resultVar $ITAmount
+}
+Equals
+{
+srcVar1 $ITAmount
+resultVar $detailblendfactor
+}
+}
+}

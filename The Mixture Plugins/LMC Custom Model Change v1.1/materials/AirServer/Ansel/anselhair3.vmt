@@ -1,0 +1,13 @@
+patch
+{
+	include "materials\AirServer\Ansel\shader.vmt"
+	insert
+	{
+		"$basetexture" "AirServer\Ansel\ear"
+	}
+	replace
+	{
+		"$lightwarptexture" "AirServer\Ansel\shader\skinwarp"
+		"$phongboost"	".5"
+	}
+}

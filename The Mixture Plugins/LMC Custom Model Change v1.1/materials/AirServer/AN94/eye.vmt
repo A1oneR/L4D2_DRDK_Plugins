@@ -1,0 +1,18 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "AirServer/AN94/eye"
+        "$lightwarptexture" "AirServer/AN94/basewarp"
+        "$bumpmap" "AirServer/AN94/normal"
+        "$nocull" 1
+	"$nodecal" 1
+	"$phong" "1"
+	"$phongboost"	".02"
+	"$phongalbedotint" "1"
+	"$phongfresnelranges"	"[1 .1 .1]"
+	"$PhongExponent" "1.0"
+	"$halflambert" "1"
+$alphatest 1
+$alphatestreference 0.7
+$translucent 1
+$ambientocclusion 0
+}
