@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "AirServer/Amiya/H"    
+        "$lightwarptexture" "AirServer/Amiya/basewarp"
+        "$bumpmap" "AirServer/Amiya/normal"
+        "$nocull" 1
+	"$nodecal" 1
+	"$halflambert" "1"
+$alphatest 1
+$alphatestreference 0.7
+$translucent 1
+$ambientocclusion 0
+}

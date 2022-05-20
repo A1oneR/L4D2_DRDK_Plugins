@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "AirServer/Lappland/metal"
+        "$lightwarptexture" "AirServer/Lappland/basewarp"
+         "$bumpmap" "AirServer/Lappland/normal"
+        "$nocull" 1
+	"$nodecal" 1
+	"$phong" "1"
+	"$phongboost"	".02"
+	"$phongalbedotint" "1"
+	"$phongfresnelranges"	"[1 .1 .1]"
+	"$PhongExponent" "1.0"
+	"$halflambert" "1"
+}
