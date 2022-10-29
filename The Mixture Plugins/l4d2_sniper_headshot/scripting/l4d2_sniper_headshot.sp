@@ -26,11 +26,11 @@ public APLRes AskPluginLoad2(Handle hMyself, bool bLate, char[] sError, int iErr
 
 public Plugin myinfo =
 {
-	name = "L4D2 Sniper Hunter Bodyshot",
-	author = "Visor, A1m`",
-	description = "Remove sniper weapons' stomach hitgroup damage multiplier against hunters",
-	version = "2.2",
-	url = "https://github.com/Attano/L4D2-Competitive-Framework"
+	name = "L4D2 Sniper HeadShot",
+	author = "Visor, A1m`, A1R",
+	description = "Headshot!!!",
+	version = "1.0",
+	url = "https://github.com/A1oneR/AirMod"
 };
 
 public void OnPluginStart()
