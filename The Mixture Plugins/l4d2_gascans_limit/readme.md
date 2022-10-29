@@ -1,0 +1,1 @@
+Limit the assholes who wants to spawn second tank in c1m4.

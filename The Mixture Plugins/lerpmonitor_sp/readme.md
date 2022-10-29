@@ -1,0 +1,1 @@
+Besides origin plugins, it add 2 CMDS: /pings /status

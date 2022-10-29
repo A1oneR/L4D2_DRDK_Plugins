@@ -1,0 +1,1 @@
+Simply insta-kill infected when there is a headshot.

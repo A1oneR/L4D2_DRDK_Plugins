@@ -1,0 +1,1 @@
+Besides the original plugins, it add a function to give the Tank to AI (useful when there is a HardSI_Tank)

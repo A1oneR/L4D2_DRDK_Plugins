@@ -1,0 +1,1 @@
+The Human controlled Infected (except Tank and Ghosts)will be automatically suicide in 15 secs.

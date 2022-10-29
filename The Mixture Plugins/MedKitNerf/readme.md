@@ -1,0 +1,1 @@
+Nerf the Medkits that it only recover 1 incap time.

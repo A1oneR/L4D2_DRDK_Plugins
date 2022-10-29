@@ -1,0 +1,1 @@
+Besides the original plugins, it add a function to give the ability to BHOP with 3k HP penalty.
