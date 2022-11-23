@@ -147,7 +147,7 @@ void PillsUsed_Event(Event event, const char[] name, bool dontBroadcast)
 		event.GetInt("userid"),
 		hCvarPillInterval.FloatValue,
 		hCvarPillIncrement.IntValue,
-		hCvarPillTotal.IntValue - hCvarDrugResistanceAmount.IntValue
+		hCvarPillTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client]
 		);
 	}
 	iDrugUsed[client]++;
@@ -171,7 +171,7 @@ void AdrenalineUsed_Event(Event event, const char[] name, bool dontBroadcast)
 		event.GetInt("userid"),
 		hCvarAdrenInterval.FloatValue,
 		hCvarAdrenIncrement.IntValue,
-		hCvarAdrenTotal.IntValue - hCvarDrugResistanceAmount.IntValue
+		hCvarAdrenTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client]
 		);
 	}
 	iDrugUsed[client]++;
