@@ -64,7 +64,7 @@ public void OnPluginStart()
 	pain_pills_health_value = FindConVar("pain_pills_health_value");
 	pain_pills_health_value.GetString(buffer, sizeof(buffer));
 	
-	hCvarPillHot =			CreateConVar("l4d_pills_hot",				"0",	"Pills heal over time",				FCVAR_NOTIFY|FCVAR_SPONLY, true, 0.0, true, 1.0);
+	hCvarPillHot =			CreateConVar("l4d_pills_hot",				"1",	"Pills heal over time",				FCVAR_NOTIFY|FCVAR_SPONLY, true, 0.0, true, 1.0);
 	hCvarPillInterval =		CreateConVar("l4d_pills_hot_interval",		"1.0",	"Interval for pills hot",			FCVAR_NOTIFY|FCVAR_SPONLY, true, 0.00001);
 	hCvarPillIncrement =	CreateConVar("l4d_pills_hot_increment",		"10",	"Increment amount for pills hot",	FCVAR_NOTIFY|FCVAR_SPONLY, true, 1.0);
 	hCvarPillTotal =		CreateConVar("l4d_pills_hot_total",			buffer,	"Total amount for pills hot",		FCVAR_NOTIFY|FCVAR_SPONLY, true, 0.0);
@@ -132,48 +132,42 @@ void HandleSurvivorTakeover(int replacee, int replacer)
 void PillsUsed_Event(Event event, const char[] name, bool dontBroadcast)
 {
 	int client = GetClientOfUserId(GetEventInt(event, "userid"));
+	int HealAmount;
 	if (hCvarPillTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client] <= hCvarDrugResistanceMinimum.IntValue)
 	{
-		HealEntityOverTime(
-		event.GetInt("userid"),
-		hCvarPillInterval.FloatValue,
-		hCvarPillIncrement.IntValue,
-		hCvarDrugResistanceMinimum.IntValue
-		);
+		HealAmount = hCvarDrugResistanceMinimum.IntValue;
 	}
 	else
 	{
-		HealEntityOverTime(
-		event.GetInt("userid"),
-		hCvarPillInterval.FloatValue,
-		hCvarPillIncrement.IntValue,
-		hCvarPillTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client]
-		);
+		HealAmount = hCvarPillTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client];
 	}
+	HealEntityOverTime(
+	event.GetInt("userid"),
+	hCvarPillInterval.FloatValue,
+	hCvarPillIncrement.IntValue,
+	HealAmount
+	);
 	iDrugUsed[client]++;
 }
 
 void AdrenalineUsed_Event(Event event, const char[] name, bool dontBroadcast)
 {
 	int client = GetClientOfUserId(GetEventInt(event, "userid"));
+	int HealAmount;
 	if (hCvarAdrenTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client] <= hCvarDrugResistanceMinimum.IntValue)
 	{
-		HealEntityOverTime(
-		event.GetInt("userid"),
-		hCvarAdrenInterval.FloatValue,
-		hCvarAdrenIncrement.IntValue,
-		hCvarDrugResistanceMinimum.IntValue
-		);
+		HealAmount = hCvarDrugResistanceMinimum.IntValue;
 	}
 	else
 	{
-		HealEntityOverTime(
-		event.GetInt("userid"),
-		hCvarAdrenInterval.FloatValue,
-		hCvarAdrenIncrement.IntValue,
-		hCvarAdrenTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client]
-		);
+		HealAmount = hCvarAdrenTotal.IntValue - hCvarDrugResistanceAmount.IntValue * iDrugUsed[client];
 	}
+	HealEntityOverTime(
+	event.GetInt("userid"),
+	hCvarAdrenInterval.FloatValue,
+	hCvarAdrenIncrement.IntValue,
+	HealAmount
+	);
 	iDrugUsed[client]++;
 }
 
@@ -256,14 +250,14 @@ void __HealTowardsMax(int client, int amount, int max)
 
 void CvarChg_PillHot(ConVar convar, const char[] oldValue, const char[] newValue)
 {
-	TogglePillHot(hCvarPillHot.BoolValue);
-	SwitchGeneralEventHooks(hCvarPillHot.BoolValue || hCvarAdrenHot.BoolValue);
+	TogglePillHot(hCvarPillHot.IntValue);
+	SwitchGeneralEventHooks(hCvarPillHot.IntValue || hCvarAdrenHot.IntValue);
 }
 
 void CvarChg_AdrenHot(ConVar convar, const char[] oldValue, const char[] newValue)
 {
-	ToggleAdrenHot(hCvarAdrenHot.BoolValue);
-	SwitchGeneralEventHooks(hCvarPillHot.BoolValue || hCvarAdrenHot.BoolValue);
+	ToggleAdrenHot(hCvarAdrenHot.IntValue);
+	SwitchGeneralEventHooks(hCvarPillHot.IntValue || hCvarAdrenHot.IntValue);
 }
 
 void TogglePillHot(bool enable)
