@@ -42,6 +42,8 @@ new Handle:hCvarIncapPenalty;
 new Handle:hCvarAllowMix;
 new Handle:hCvarTempToPerm;
 new Handle:hCvarPermToTemp;
+new Handle:hCvarDeathPenaltyFactor;
+new Handle:hCvarDeathMininumPenalty;
 // new Handle:hCvarTiebreakerBonus;
 
 new Handle:hCvarValveSurvivalBonus;
@@ -117,6 +119,8 @@ public OnPluginStart()
 	hCvarAllowMix = CreateConVar("am_health_damage_mix", "1", "Are we allow two pools mix together");
 	hCvarPermToTemp = CreateConVar("am_health_damage_ptt", "1.0", "1 Perm Damage times this value to thansfer TotalMix Penalty (Mix set to 1)", FCVAR_NONE, true, 0.0);
 	hCvarTempToPerm = CreateConVar("am_health_damage_ttp", "1.0", "1 Temp Damage times this value to thansfer TotalMix Penalty (Mix set to 1)", FCVAR_NONE, true, 0.0);
+	hCvarDeathPenaltyFactor = CreateConVar("am_death_penalty_factor", "0.3", "Reduce the Bonus when someone died", FCVAR_NONE, true, 0.0, true, 1.0);
+	hCvarDeathMininumPenalty = CreateConVar("am_death_min_penalty", "50.0", "The mininum bonus will be reduced when someone died", FCVAR_NONE, true, 0.0);
 	// hCvarTiebreakerBonus = CreateConVar("sm2_tiebreaker_bonus", "25", "Tiebreaker for those cases when both teams make saferoom with no bonus", FCVAR_PLUGIN);
 	
 	hCvarValveSurvivalBonus = FindConVar("vs_survival_bonus");
@@ -126,10 +130,11 @@ public OnPluginStart()
 	HookConVarChange(hCvarPermBonusProportion, CvarChanged);
 
 	HookEvent("round_start", EventHook:OnRoundStart, EventHookMode_PostNoCopy);
-	HookEvent("player_ledge_grab", OnPlayerLedgeGrab);
-	HookEvent("player_incapacitated", OnPlayerIncapped);
+	//HookEvent("player_ledge_grab", OnPlayerLedgeGrab);
+	//HookEvent("player_incapacitated", OnPlayerIncapped);
 	HookEvent("player_hurt", OnPlayerHurt);
-	HookEvent("revive_success", OnPlayerRevived, EventHookMode_Post);
+	//HookEvent("revive_success", OnPlayerRevived, EventHookMode_Post);
+	HookEvent("player_death", OnPlayerDeath);
 
 	RegConsoleCmd("sm_health", CmdBonus);
 	RegConsoleCmd("sm_damage", CmdBonus);
@@ -435,11 +440,14 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 	return Plugin_Continue;
 }
 
+/*
 public OnPlayerLedgeGrab(Handle:event, const String:name[], bool:dontBroadcast)
 {
 	iLostTempHealth[InSecondHalfOfRound()] += 1;
 }
+*/
 
+/*
 public OnPlayerIncapped(Handle:event, const String:name[], bool:dontBroadcast)
 {
 	new client = GetClientOfUserId(GetEventInt(event, "userid"));
@@ -447,9 +455,47 @@ public OnPlayerIncapped(Handle:event, const String:name[], bool:dontBroadcast)
 	if (IsSurvivor(client))
 	{
 		iLostTempHealth[InSecondHalfOfRound()] += RoundToFloor(fTempHpWorth * fIncapPenalty);
+		PrintToChatAll("Reduce:%i", RoundToFloor(fTempHpWorth * fIncapPenalty));
 	} 
 }
+*/
 
+public Action OnPlayerDeath(Handle:event, const String:name[], bool:dontBroadcast)
+{
+	new client = GetClientOfUserId(GetEventInt(event, "userid"));
+	if (!IsSurvivor(client))
+	{
+		return Plugin_Continue;
+	}
+	if (GetConVarBool(hCvarAllowMix))
+	{
+		new iTotalHealthPoolCac = GetConVarInt(hCvarPermTotal) + GetConVarInt(hCvarTempTotal);
+		new Float:fDamageWorthCac = fMapDamageBonus / float(iTotalHealthPoolCac);
+		new Float:fDamageBonusCac = fMapDamageBonus - (float(iLostPermHealth[InSecondHalfOfRound()]) * GetConVarFloat(hCvarPermToTemp) * fDamageWorthCac + float(iLostTempHealth[InSecondHalfOfRound()]) * GetConVarFloat(hCvarTempToPerm) * fDamageWorthCac);
+		new fPPenalty = RoundToFloor(fDamageBonusCac * GetConVarFloat(hCvarPermToTemp) * fDamageWorthCac * GetConVarFloat(hCvarDeathPenaltyFactor) / 4);
+		new fTPenalty = RoundToFloor(fDamageBonusCac * GetConVarFloat(hCvarTempToPerm) * fDamageWorthCac * GetConVarFloat(hCvarDeathPenaltyFactor) / 4);
+		if (fPPenalty + fTPenalty <= GetConVarFloat(hCvarDeathMininumPenalty))
+		{
+			iLostPermHealth[InSecondHalfOfRound()] += GetConVarInt(hCvarDeathMininumPenalty) / 2;
+			iLostTempHealth[InSecondHalfOfRound()] += GetConVarInt(hCvarDeathMininumPenalty) / 2;
+		}
+		else
+		{
+			iLostPermHealth[InSecondHalfOfRound()] += fPPenalty;
+			iLostTempHealth[InSecondHalfOfRound()] += fTPenalty;
+		}
+		//PrintToChatAll("LostPerm:%i, LostTemp:%i, PP:%.1f%, TP:%.1f%", iLostPermHealth[InSecondHalfOfRound()], iLostTempHealth[InSecondHalfOfRound()], fPPenalty, fTPenalty);
+		return Plugin_Continue;
+	}
+	else
+	{
+		iLostPermHealth[InSecondHalfOfRound()] += (fMapDamageBonus * fPermHealthProportion - float(iLostPermHealth[InSecondHalfOfRound()]) * fPermHpWorth / 2) * GetConVarFloat(hCvarDeathPenaltyFactor);
+		iLostTempHealth[InSecondHalfOfRound()] += (fMapDamageBonus * fTempHealthProportion - float(iLostTempHealth[InSecondHalfOfRound()]) * fTempHpWorth / 2) * GetConVarFloat(hCvarDeathPenaltyFactor);
+	}
+	return Plugin_Continue;
+}
+
+/*
 public Action OnPlayerRevived(Handle:event, const String:name[], bool:dontBroadcast)
 {
 	bool bLedge = GetEventBool(event, "ledge_hang");
@@ -458,13 +504,19 @@ public Action OnPlayerRevived(Handle:event, const String:name[], bool:dontBroadc
 	int client = GetClientOfUserId(GetEventInt(event, "subject"));
 	if (!IsSurvivor(client)) return;
 
+	new Float:fIncapPenalty = GetConVarFloat(hCvarIncapPenalty);
+	iLostTempHealth[InSecondHalfOfRound()] -= RoundToFloor(fTempHpWorth * fIncapPenalty);
+	PrintToChatAll("Recover:%i", RoundToFloor(fTempHpWorth * fIncapPenalty));
 	RequestFrame(Revival, client);
 }
 
 public void Revival(int client)
 {
-	iLostTempHealth[InSecondHalfOfRound()] -= GetSurvivorTemporaryHealth(client);
+	new Float:fIncapPenalty = GetConVarFloat(hCvarIncapPenalty);
+	iLostTempHealth[InSecondHalfOfRound()] -= RoundToFloor(fTempHpWorth * fIncapPenalty);
+	PrintToChatAll("Recover:%i", RoundToFloor(fTempHpWorth * fIncapPenalty));
 }
+*/
 
 public Action:OnPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) 
 {
@@ -602,7 +654,8 @@ Float:GetSurvivorDamageBonus()
 	{
 		new iTotalHealthPool = GetConVarInt(hCvarPermTotal) + GetConVarInt(hCvarTempTotal);
 		new Float:fDamageWorth = fMapDamageBonus / float(iTotalHealthPool);
-		new Float:fDamageBonus = fMapDamageBonus - float(iLostPermHealth[InSecondHalfOfRound()]) * GetConVarFloat(hCvarPermToTemp) * fDamageWorth + float(iLostTempHealth[InSecondHalfOfRound()]) * GetConVarFloat(hCvarTempToPerm) * fDamageWorth;
+		new Float:fDamageBonus = fMapDamageBonus - (float(iLostPermHealth[InSecondHalfOfRound()]) * GetConVarFloat(hCvarPermToTemp) * fDamageWorth + float(iLostTempHealth[InSecondHalfOfRound()]) * GetConVarFloat(hCvarTempToPerm) * fDamageWorth);
+		//PrintToChatAll("LostPerm=%i, %i, %.1f, %.1f", iLostPermHealth[InSecondHalfOfRound()], iLostTempHealth[InSecondHalfOfRound()], fDamageBonus, fMapDamageBonus);
 		return (fDamageBonus > 0.0 && survivalMultiplier > 0) ? fDamageBonus : 0.0;
 	}
 	if (fPermDamageBonus <= 0)
